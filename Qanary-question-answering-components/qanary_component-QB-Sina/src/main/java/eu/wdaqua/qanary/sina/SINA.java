@@ -71,9 +71,19 @@ public class SINA extends QanaryComponent {
 		if(argument.length() > 2 && StringUtils.countMatches(argument, "dbpedia") <=3 ) {
 			final String endpoint = myQanaryMessage.getEndpoint().toString();
 			final String[] queryTemplates = runSina(argument);
-			final String questionUri = getQuestionURI(qanaryUtils, myQanaryMessage.getInGraph().toString(), endpoint);
-			final String updateQuery = createUpdateQueryFromQueryTemplate(queryTemplates, qanaryUtils, questionUri); 
 
+			logger.info("BEN Query Templates: {}", queryTemplates);
+			logger.info("BEN Qanary Utils: {}", qanaryUtils);
+
+			final String questionUri = getQuestionURI(qanaryUtils, myQanaryMessage.getInGraph().toString(), endpoint);
+			final String updateQuery = createUpdateQueryFromQueryTemplate(queryTemplates, qanaryUtils, questionUri);
+
+			logger.info("BEN Question URI: {}", questionUri);
+			logger.info("BEN updateQuery: {}", updateQuery);
+
+			/**
+			 * Doesn't return the actual graph but "0" or NULL
+			 */
 			logger.info("store data in graph {}", myQanaryMessage.getValues().get(myQanaryMessage.getEndpoint()));
 			logger.info("apply vocabulary alignment on outgraph");
 			qanaryUtils.updateTripleStore(updateQuery, endpoint);
