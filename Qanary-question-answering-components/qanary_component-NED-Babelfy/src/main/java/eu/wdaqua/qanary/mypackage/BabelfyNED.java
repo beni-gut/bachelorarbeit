@@ -67,7 +67,7 @@ public class BabelfyNED extends QanaryComponent {
 	    
 	    ArrayList<Link> links = new ArrayList<Link>();
 	    try {
-			File f = new File("qanary_component-NED-Babelfy/src/main/resources/questions.txt");
+			File f = new File("/home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-Babelfy/src/main/resources/questions.txt");
 	    	FileReader fr = new FileReader(f);
 	    	BufferedReader br  = new BufferedReader(fr);
 			int flag = 0;
@@ -147,7 +147,7 @@ public class BabelfyNED extends QanaryComponent {
 	                }
 	            }
 	          }
-	        BufferedWriter buffWriter = new BufferedWriter(new FileWriter("qanary_component-NED-Babelfy/src/main/resources/questions.txt", true));
+	        BufferedWriter buffWriter = new BufferedWriter(new FileWriter("/home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-Babelfy/src/main/resources/questions.txt", true));
 	        Gson gson = new Gson();
 	        
 	        String json = gson.toJson(links);
