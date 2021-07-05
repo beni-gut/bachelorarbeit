@@ -262,27 +262,27 @@ public class SINA extends QanaryComponent {
 		int x = 10;
 		for (int i = 0; i < queryTemplates.length; i++) {
 			sparqlPart1 += "" // 
-					+ "?a" + i + " a qa:AnnotationOfAnswerSPARQL . " // 
-					+ "?a" + i + " oa:hasTarget <"+questionUri+"> . " // 
-					+ "?a" + i + " oa:hasBody \"" + queryTemplates[i].replace("\n", " ") + "\" ;" //
-					+ "     oa:annotatedBy <urn:qanary:QB#" + SINA.class.getName()+"> ; " //
-					+ "         oa:annotatedAt ?time ; " //
-					+ "         qa:hasScore " + x-- + " . \n"; 
+					+ "  ?a" + i + " a qa:AnnotationOfAnswerSPARQL . \n" //
+					+ "  ?a" + i + " oa:hasTarget <"+questionUri+"> . \n" //
+					+ "  ?a" + i + " oa:hasBody \"" + queryTemplates[i].replace("\n", " ") + "\" ; \n" //
+					+ "       oa:annotatedBy <urn:qanary:QB#" + SINA.class.getName()+"> ; \n" //
+					+ "           oa:annotatedAt ?time ; \n" //
+					+ "           qa:hasScore " + x-- + " . \n";
 			sparqlPart2 += "BIND (IRI(str(RAND())) AS ?a" + i + ") . \n";
 		}
 
-		final String sparql = "" // 
-							+ "PREFIX qa: <http://www.wdaqua.eu/qa#> " // 
-							+ "PREFIX oa: <http://www.w3.org/ns/openannotation/core/> " //
-							+ "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> " //
-							+ "INSERT { " //  
-							+ "  GRAPH <" + qanaryUtils.getInGraph() + "> { " + sparqlPart1 + "}" // 
-							+ "} " //
-							+ "WHERE { " //
+		final String sparql = "\n" //
+							+ "PREFIX qa: <http://www.wdaqua.eu/qa#> \n" //
+							+ "PREFIX oa: <http://www.w3.org/ns/openannotation/core/> \n" //
+							+ "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> \n" //
+							+ "INSERT { \n" //
+							+ "GRAPH <" + qanaryUtils.getInGraph() + "> { " + sparqlPart1 + "  } \n" //
+							+ "} \n" //
+							+ "WHERE { \n" //
 							+ "  " + sparqlPart2 // 
-							+ "  BIND (IRI(str(RAND())) AS ?b) ." //
-							+ "  BIND (now() as ?time) . " //
-							+ "}";
+							+ "  BIND (IRI(str(RAND())) AS ?b) .\n" //
+							+ "  BIND (now() as ?time) . \n" //
+							+ "} \n";
 		return sparql;
 	}
 	
