@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URISyntaxException;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -230,12 +231,12 @@ public class SINA extends QanaryComponent {
 	 * @throws InterruptedException
 	 */
 	protected String executeExternalSinaJarFile(String argument) throws IOException, InterruptedException {
-		logger.info("executeExternalSinaJarFile: argument={} on {}", argument, sinaJarFileLocation);
+		logger.info("\nexecuteExternalSinaJarFile: argument={} \non {} ", argument, sinaJarFileLocation);
 
 		final ProcessBuilder pb = new ProcessBuilder("java", "-jar", sinaJarFileLocation, argument);
 		pb.redirectErrorStream(true);
 		final Process p = pb.start();
-		p.waitFor();
+		p.waitFor(10, TimeUnit.SECONDS);
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 		String outputRetrieved = "";
@@ -243,7 +244,10 @@ public class SINA extends QanaryComponent {
 		while ((line = br.readLine()) != null) {
 			outputRetrieved += line;
 		}
+		logger.info("BEN, retrieved Output: {}", outputRetrieved);
+		logger.info("close buffered reader");
 		br.close();
+		logger.info("destroy Process");
 		p.destroy();
 
 		logger.debug("executeExternalSinaJarFile: retrieved output={}", outputRetrieved);
@@ -349,4 +353,37 @@ public class SINA extends QanaryComponent {
 		logger.info("Found JAR file ({}) at {}", sinaJarFileName, sinaJarFileAbsoluteLocation);
 		return sinaJarFileAbsoluteLocation;
 	}
+
+	private String createUpdateQueryJsonFromQueryTemplate(final String[] queryTemplates, final QanaryUtils qanaryUtils, String questionUri) {
+		String sparqlInserts = "";
+		String sparqlBinds = "";
+		int x = 10;
+		for (int i = 0; i < queryTemplates.length; i++) {
+			sparqlInserts += "" //
+					+ "  ?a" + i + " a qa:AnnotationOfAnswerSPARQL . \n" //
+					+ "  ?a" + i + " oa:hasTarget <"+questionUri+"> . \n" //
+					+ "  ?a" + i + " oa:hasBody \"" + queryTemplates[i].replace("\n", " ") + "\" ; \n" //
+					+ "       oa:annotatedBy <urn:qanary:QB#" + SINA.class.getName()+"> ; \n" //
+					+ "           oa:annotatedAt ?time ; \n" //
+					+ "           qa:hasScore " + x-- + " . \n";
+			sparqlBinds += "BIND (IRI(str(RAND())) AS ?a" + i + ") . \n";
+		}
+
+		final String sparql = "\n" //
+				+ "PREFIX qa: <http://www.wdaqua.eu/qa#> \n" //
+				+ "PREFIX oa: <http://www.w3.org/ns/openannotation/core/> \n" //
+				+ "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> \n" //
+				+ "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \n" //
+				+ "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n" //
+				+ "INSERT { \n" //
+				+ "GRAPH <" + qanaryUtils.getInGraph() + "> { " + sparqlInserts + "  } \n" //
+				+ "} \n" //
+				+ "WHERE { \n" //
+				+ "  " + sparqlBinds //
+				+ "  BIND (IRI(str(RAND())) AS ?b) .\n" //
+				+ "  BIND (now() as ?time) . \n" //
+				+ "} \n";
+		return sparql;
+	}
+
 }
