@@ -96,7 +96,7 @@ public class DBpediaSpotlightNER extends QanaryComponent {
 		 */
 
         // TODO: Should move to the config
-        String madeUrlFromInput = "http://spotlight.sztaki.hu:2222/rest/spot?text=";
+        String madeUrlFromInput = "https://api.dbpedia-spotlight.org/en/spot?text=";
 		/*
 		 * String qns[] = input.split(" "); String append = String.join("%20",
 		 * qns);
@@ -146,6 +146,9 @@ public class DBpediaSpotlightNER extends QanaryComponent {
 
             List<String> stEn = new ArrayList<String>();
             stEn = qaw.getResults(myQuestion);
+
+            logger.info("BEN results: {}", stEn);
+
             int cnt = 0;
             ArrayList<Selection> selections = new ArrayList<Selection>();
             for (String str : stEn) {
