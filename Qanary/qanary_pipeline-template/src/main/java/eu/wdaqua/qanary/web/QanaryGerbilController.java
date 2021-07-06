@@ -133,7 +133,7 @@ public class QanaryGerbilController {
 	public ResponseEntity<?> gerbil(
 			@RequestParam(value = "query", required = true) final String query,
             @PathVariable("components") final String componentsToBeCalled
-    ) throws URISyntaxException, SparqlQueryFailed {
+    ) throws Exception, URISyntaxException, SparqlQueryFailed {
     	logger.info("Asked question: {}", query);
         logger.info("QA pipeline components: {}", componentsToBeCalled);
     	MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
@@ -161,40 +161,108 @@ public class QanaryGerbilController {
  		}*/
 
 
-//        /**
-//         * Changed source
-//         *
-//         * Needs to be in the form of:
-//         * {
-//         * 	"questions": [{
-//         * 		"id": "1",
-//         * 		"question": [{
-//         * 			"language": "en",
-//         * 			"string": "Which German cities have more than 250000 inhabitants?"
-//         *                }],
-//         * 		"query": {
-//         * 			"sparql": "SELECT DISTINCT ?uri WHERE { { ?uri <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/City> . } UNION { ?uri <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/Town> . }  ?uri <http://dbpedia.org/ontology/country> <http://dbpedia.org/resource/Germany> .  ?uri <http://dbpedia.org/ontology/populationTotal> ?population .  FILTER ( ?population > 250000 ) } "
-//         *        },
-//         * 		"answers": [{
-//         * 			"head": {
-//         * 				"vars": [
-//         * 					"uri"
-//         * 				]
-//         *            },
-//         * 			"results": {
-//         * 				"bindings": [{
-//         * 					"uri": {
-//         * 						"type": "uri",
-//         * 						"value": "http://dbpedia.org/resource/Bonn"
-//         *                    }
-//         *                }]
-//         *            }
-//         *        }]* 	}]
-//         * }
-//         *
-//         *
-//         * */
-//        JSONObject obj = new JSONObject();
+        /**
+         * Changed source
+         *
+         * Needs to be in the form of:
+         * {
+         * 	"questions": [{
+         * 		"id": "1",
+         * 		"question": [{
+         * 			"language": "en",
+         * 			"string": "Which German cities have more than 250000 inhabitants?"
+         *                }],
+         * 		"query": {
+         * 			"sparql": "SELECT DISTINCT ?uri WHERE { { ?uri <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/City> . } UNION { ?uri <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/Town> . }  ?uri <http://dbpedia.org/ontology/country> <http://dbpedia.org/resource/Germany> .  ?uri <http://dbpedia.org/ontology/populationTotal> ?population .  FILTER ( ?population > 250000 ) } "
+         *        },
+         * 		"answers": [{
+         * 			"head": {
+         * 				"vars": [
+         * 					"uri"
+         * 				]
+         *            },
+         * 			"results": {
+         * 				"bindings": [{
+         * 					"uri": {
+         * 						"type": "uri",
+         * 						"value": "http://dbpedia.org/resource/Bonn"
+         *                    }
+         *                }]
+         *            }
+         *        }]* 	}]
+         * }
+         *
+         *
+         * */
+        //contained in wrapper json "obj"
+        //asked question json object
+        JSONArray questionDataArray = new JSONArray();
+        JSONObject questionData = new JSONObject();
+        //asked question json object, data of question
+        questionData.put("language", "en"); //TEST
+        String questionText = myQanaryQuestion.getTextualRepresentation();
+        questionData.put("string", questionText);
+        //add question Data to wrapper obj
+        questionDataArray.add(questionData);
+
+        //sparql query object
+        JSONObject sparqlQuery = new JSONObject();
+        sparqlQuery.put("sparql", myQanaryQuestion.getSparqlResult());
+
+        //answers, contains "head" and "results"
+        JSONArray answersArray = new JSONArray();
+        JSONObject answersObj = new JSONObject();
+
+        //in answers, head contains vars, defines which type of variable will be returned
+        JSONObject head = new JSONObject();
+        JSONArray vars = new JSONArray();
+        //variable data
+        vars.add("uri"); //TEST
+        //add objects to wrappers
+        head.put("vars", vars);
+
+        //results contains the bindings of the results
+        JSONObject results = new JSONObject();
+        JSONArray bindingsArray = new JSONArray();
+        JSONObject dataObj = new JSONObject();
+        JSONObject data = new JSONObject();
+        //answer data
+        data.put("type", "uri"); //TEST
+        data.put("value", "the correct dbpedia uri"); //TEST
+        //add to wrappers
+        dataObj.put("uri", data);
+        bindingsArray.add(dataObj);
+        results.put("bindings", bindingsArray);
+
+        //add everything into answers array
+        answersObj.put("head", head);
+        answersObj.put("results", results);
+        answersArray.add(answersObj);
+
+
+        //wrapper json
+        JSONObject questionsObj = new JSONObject();
+        JSONArray questionsArray = new JSONArray();
+        JSONObject questionsTtem = new JSONObject();
+
+        //put everything into wrapper object
+        //id?
+        questionsTtem.put("id", "1"); //TEST
+        questionsTtem.put("question", questionDataArray);
+        questionsTtem.put("query", sparqlQuery);
+        questionsTtem.put("answers", answersArray);
+        questionsArray.add(questionsTtem);
+
+        questionsObj.put("questions", questionsArray);
+
+        //isn't properly returned yet?
+        logger.info("Returned JSON object: {}", questionsObj);
+        //question.put("answers", myQanaryQuestion.getJsonResult());
+
+        return new ResponseEntity<JSONObject>(questionsObj,HttpStatus.OK);
+
+
+        //        JSONObject obj = new JSONObject();
 //        JSONArray questions = new JSONArray();
 //        JSONObject item = new JSONObject();
 //        JSONArray question = new JSONArray();
@@ -238,40 +306,16 @@ public class QanaryGerbilController {
 //         * */
 //
 //        question.add(temp);
-
-        // getQueries changed in "qanary_commons/main/.../commons/QanaryQuestion.java" to "getSparqlResult"
-        /*
-        item.put("query", myQanaryQuestion.getSparqlResult());
-        item.put("question", question);
-        questions.add(item);
-        obj.put("questions", questions);
-        qanaryAnno.put("entities", myQanaryQuestion.getEntities());
-        qanaryAnno.put("properties", myQanaryQuestion.getProperties());
-        qanaryAnno.put("classes", myQanaryQuestion.getClasses());
-        item.put("qanaryAnno",qanaryAnno);
-        */
-
-        /**
-         * Original from here on out
-         */
-        JSONObject obj = new JSONObject();
-        JSONArray questions = new JSONArray();
-        JSONObject item = new JSONObject();
-        JSONObject question = new JSONObject();
-        JSONArray language = new JSONArray();
-        JSONObject sparql = new JSONObject();
-        sparql.put("SPARQL", myQanaryQuestion.getSparqlResult());
-        language.add(sparql);
-        question.put("answers", myQanaryQuestion.getJsonResult());
-        question.put("language", language);
-        item.put("question", question);
-        questions.add(item);
-
-        obj.put("questions", questions);
-
-        //isn't properly returned yet
-        logger.info("Returned JSON object: {}", obj);
-
-        return new ResponseEntity<JSONObject>(obj,HttpStatus.OK);
+//
+//        getQueries changed in "qanary_commons/main/.../commons/QanaryQuestion.java" to "getSparqlResult"
+//
+//        item.put("query", myQanaryQuestion.getSparqlResult());
+//        item.put("question", question);
+//        questions.add(item);
+//        obj.put("questions", questions);
+//        qanaryAnno.put("entities", myQanaryQuestion.getEntities());
+//        qanaryAnno.put("properties", myQanaryQuestion.getProperties());
+//        qanaryAnno.put("classes", myQanaryQuestion.getClasses());
+//        item.put("qanaryAnno",qanaryAnno);
     }
 }
