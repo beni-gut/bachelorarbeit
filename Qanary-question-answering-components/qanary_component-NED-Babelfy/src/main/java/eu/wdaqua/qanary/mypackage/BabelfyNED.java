@@ -112,14 +112,14 @@ public class BabelfyNED extends QanaryComponent {
 			br.close();
 			if(flag==0)
 			{
-			
+
 	    logger.info("Question {}", myQuestion);
 	    String thePath = "";
 	    thePath = URLEncoder.encode(myQuestion, "UTF-8"); 
 	    logger.info("Path {}", thePath);
-	      
+
 	    HttpClient httpclient = HttpClients.createDefault();
-	    HttpGet httpget = new HttpGet("https://babelfy.io/v1/disambiguate?text="+thePath+"&lang=AGNOSTIC&key=54c2f995-0b2a-4f46-beb0-002202765241");
+	    HttpGet httpget = new HttpGet("https://babelfy.io/v1/disambiguate?text="+thePath+"&lang=AGNOSTIC&key=38a3247d-a5c0-458d-8f5b-2d364e2eeda3");
 	    HttpResponse response = httpclient.execute(httpget);
 	    try {
 	    	HttpEntity entity = response.getEntity();
