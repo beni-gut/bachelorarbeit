@@ -66,9 +66,9 @@ public class DandelionNED extends QanaryComponent {
 	    
 	    ArrayList<Link> links = new ArrayList<Link>();
 	    
-	    logger.info("Question {}", myQuestion);
+	    logger.info("Line 69, Question {}", myQuestion);
 	    try {
-	    	File f = new File("qanary_component-NED-Dandelion/src/main/resources/questions.txt");
+	    	File f = new File("/home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-Dandelion/src/main/resources/questions.txt");
 	    	FileReader fr = new FileReader(f);
 	    	BufferedReader br  = new BufferedReader(fr);
 			int flag = 0;
@@ -79,15 +79,19 @@ public class DandelionNED extends QanaryComponent {
 			
 			while((line = br.readLine()) != null && flag == 0) {
 			    String question = line.substring(0, line.indexOf("Answer:"));
-				logger.info("{}", line);
-				logger.info("{}", myQuestion);
+				logger.info("Line 82, {}", line);
+				logger.info("Line 83, question: {}", question);
+				logger.info("Line 84, myQuestion: {}", myQuestion);
 				
 			    if(question.trim().equals(myQuestion))
 			    {
 			    	String Answer = line.substring(line.indexOf("Answer:")+"Answer:".length());
-			    	logger.info("Here {}", Answer);
+			    	logger.info("Line 89, Here {}", Answer);
 			    	Answer = Answer.trim();
-			    	JSONArray jsonArr =new JSONArray(Answer);
+			    	JSONArray jsonArr = new JSONArray(Answer);
+
+			    	logger.info("Line 93, jsonArr: {}", jsonArr);
+
 			    	if(jsonArr.length()!=0)
 	 	        	   {
 	 	        		   for (int i = 0; i < jsonArr.length(); i++) 
@@ -113,70 +117,73 @@ public class DandelionNED extends QanaryComponent {
 			br.close();
 			if(flag==0)
 			{
-	    String thePath = "";
-	    thePath = URLEncoder.encode(myQuestion, "UTF-8"); 
-	    logger.info("Path {}", thePath);
-	      
-	    HttpClient httpclient = HttpClients.createDefault();
-	    HttpGet httpget = new HttpGet("https://api.dandelion.eu/datatxt/nex/v1/?text="+thePath+"&include=types%2Cabstract%2Ccategories&token=0990bd650d9545709da047537ff05a49");
-	    //httpget.addHeader("User-Agent", USER_AGENT);
-	    HttpResponse response = httpclient.execute(httpget);
-	    try {
-	    	HttpEntity entity = response.getEntity();
-	        if (entity != null) {
-	        	InputStream instream = entity.getContent();
-	        	// String result = getStringFromInputStream(instream);
-	            String text = IOUtils.toString(instream, StandardCharsets.UTF_8.name());
-	            JSONObject response2 = new JSONObject(text); 
-	            logger.info("JA: {}", response2);
-	            if(response2.has("annotations")) {
-	            	JSONArray jsonArray = (JSONArray) response2.get("annotations");
-	            	if(jsonArray.length()!=0) {
-	            		for (int i = 0; i < jsonArray.length(); i++) {
-	            			JSONObject explrObject = jsonArray.getJSONObject(i);
-	            			int begin = (int) explrObject.get("start");
-	            			int end = (int) explrObject.get("end");
-	            			logger.info("Begin: {}", begin);
-	            			logger.info("End: {}", end);
-	            			String uri = (String) explrObject.get("uri");
-	            			String finalUri = "http://dbpedia.org/resource"+uri.substring(28);
-	            			logger.info("Link {}", finalUri);
-	            			
-	            			Link l = new Link();
-	    	                l.begin = begin;
-	    	                l.end = end+1;
-	    	                l.link= finalUri;
-	    	                links.add(l);
-	            		}
-	            	}
-	            }
-	          }
-	        BufferedWriter buffWriter = new BufferedWriter(new FileWriter("qanary_component-NED-Dandelion/src/main/resources/questions.txt", true));
-	        Gson gson = new Gson();
-	        
-	        String json = gson.toJson(links);
-	        logger.info("gsonwala: {}",json);
-	        
-	        String MainString = myQuestion + " Answer: "+json;
-	        buffWriter.append(MainString);
-	        buffWriter.newLine();
-	        buffWriter.close();
-	      }
-	      catch (ClientProtocolException e) {
-		 		 logger.info("Exception: {}", e);
-		         // TODO Auto-generated catch block
-		     } catch (IOException e1) {
-		     	logger.info("Except: {}", e1);
-		         // TODO Auto-generated catch block
-		     }
-	    }
-	}
+				String thePath = "";
+				thePath = URLEncoder.encode(myQuestion, "UTF-8");
+				logger.info("Path {}", thePath);
+
+				HttpClient httpclient = HttpClients.createDefault();
+				HttpGet httpget = new HttpGet("https://api.dandelion.eu/datatxt/nex/v1/?text="+thePath+"&include=types%2Cabstract%2Ccategories&token=716d28f0224b442d8e02b295da53ec3b");
+				//httpget.addHeader("User-Agent", USER_AGENT);
+				HttpResponse response = httpclient.execute(httpget);
+
+				logger.info("BEN http response: {}", response);
+
+				try {
+					HttpEntity entity = response.getEntity();
+					if (entity != null) {
+						InputStream instream = entity.getContent();
+						// String result = getStringFromInputStream(instream);
+						String text = IOUtils.toString(instream, StandardCharsets.UTF_8.name());
+						JSONObject response2 = new JSONObject(text);
+						logger.info("JA: {}", response2);
+						if(response2.has("annotations")) {
+							JSONArray jsonArray = (JSONArray) response2.get("annotations");
+							if(jsonArray.length()!=0) {
+								for (int i = 0; i < jsonArray.length(); i++) {
+									JSONObject explrObject = jsonArray.getJSONObject(i);
+									int begin = (int) explrObject.get("start");
+									int end = (int) explrObject.get("end");
+									logger.info("Begin: {}", begin);
+									logger.info("End: {}", end);
+									String uri = (String) explrObject.get("uri");
+									String finalUri = "http://dbpedia.org/resource"+uri.substring(28);
+									logger.info("Link {}", finalUri);
+
+									Link l = new Link();
+									l.begin = begin;
+									l.end = end+1;
+									l.link= finalUri;
+									links.add(l);
+								}
+							}
+						}
+					}
+					BufferedWriter buffWriter = new BufferedWriter(new FileWriter("/home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-Dandelion/src/main/resources/questions.txt", true));
+					Gson gson = new Gson();
+
+					String json = gson.toJson(links);
+					logger.info("gsonwala: {}",json);
+
+					String MainString = myQuestion + " Answer: "+json;
+					buffWriter.append(MainString);
+					buffWriter.newLine();
+					buffWriter.close();
+				}
+				catch (ClientProtocolException e) {
+					logger.info("Exception: {}", e);
+					// TODO Auto-generated catch block
+				} catch (IOException e1) {
+					logger.info("Except: {}", e1);
+					// TODO Auto-generated catch block
+				}
+	    	}
+		}
 	    catch(FileNotFoundException e) 
 		{ 
 		    //handle this
-			logger.info("{}", e);
+			logger.info("File not found exception: {}", e);
 		}
-		logger.info("store data in graph {}", myQanaryMessage.getValues().get(myQanaryMessage.getEndpoint()));
+		logger.info("Line 185, store data in graph {}", myQanaryMessage.getValues().get(myQanaryMessage.getEndpoint()));
 		// TODO: insert data in QanaryMessage.outgraph
 
 		logger.info("apply vocabulary alignment on outgraph");
