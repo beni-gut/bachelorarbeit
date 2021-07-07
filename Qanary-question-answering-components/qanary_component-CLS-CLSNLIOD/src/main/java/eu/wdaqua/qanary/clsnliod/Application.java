@@ -79,7 +79,7 @@ class DbpediaRecorodClass{
 		
 		System.out.println("Starting createDbpediaRecorodProperty()");
 		try {
-			File filename = new File("qanary_component-CLS-CLSNLIOD/src/main/resources/dbpedia_3Eng_class.ttl");
+			File filename = new File("/home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-CLS-CLSNLIOD/src/main/resources/dbpedia_3Eng_class.ttl");
 			//File filename = new File("src/main/resources/dbpedia_3Eng_class.ttl");
 			System.out.println(filename.getAbsolutePath());
 
