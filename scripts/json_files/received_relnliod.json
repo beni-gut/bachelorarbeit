@@ -1,0 +1,191 @@
+{
+  "something": [
+    {
+      "response": {
+        "sentences": [
+          {
+            "position": 0,
+            "words": [
+              {
+                "position": 0,
+                "startingPos": 0,
+                "endingPos": 4,
+                "stem": "what",
+                "lemma": "what",
+                "token": "what",
+                "partOfSpeech": "WP",
+                "parentPosition": 3,
+                "relationToParent": "nsubj"
+              },
+              {
+                "position": 1,
+                "startingPos": 5,
+                "endingPos": 7,
+                "stem": "is",
+                "lemma": "is",
+                "token": "is",
+                "partOfSpeech": "VBZ",
+                "parentPosition": 3,
+                "relationToParent": "cop"
+              },
+              {
+                "position": 2,
+                "startingPos": 8,
+                "endingPos": 11,
+                "stem": "the",
+                "lemma": "the",
+                "token": "the",
+                "partOfSpeech": "DT",
+                "parentPosition": 3,
+                "relationToParent": "det"
+              },
+              {
+                "position": 3,
+                "startingPos": 12,
+                "endingPos": 19,
+                "stem": "capit",
+                "lemma": "capital",
+                "token": "capital",
+                "partOfSpeech": "NN"
+              },
+              {
+                "position": 4,
+                "startingPos": 20,
+                "endingPos": 22,
+                "stem": "of",
+                "lemma": "of",
+                "token": "of",
+                "partOfSpeech": "IN",
+                "parentPosition": 3,
+                "relationToParent": "prep"
+              },
+              {
+                "position": 5,
+                "startingPos": 23,
+                "endingPos": 34,
+                "stem": "switzerland",
+                "lemma": "switzerland",
+                "token": "switzerland",
+                "partOfSpeech": "NN",
+                "parentPosition": 4,
+                "relationToParent": "pobj"
+              },
+              {
+                "position": 6,
+                "startingPos": 34,
+                "endingPos": 35,
+                "stem": "?",
+                "lemma": "?",
+                "token": "?",
+                "partOfSpeech": ".",
+                "parentPosition": 3,
+                "relationToParent": "punct"
+              }
+            ]
+          }
+        ],
+        "language": "eng",
+        "languageIsReliable": true,
+        "properties": [
+          {
+            "id": 0,
+            "wordPositions": [
+              0
+            ],
+            "propertyPositions": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          {
+            "id": 1,
+            "wordPositions": [
+              2,
+              3,
+              4
+            ],
+            "propertyPositions": [
+              5
+            ]
+          }
+        ]
+      },
+      "time": 0.01498,
+      "ok": true
+    },
+    {
+      "response": {
+        "sentences": [
+          {
+            "position": 0,
+            "words": [
+              {
+                "position": 0,
+                "startingPos": 0,
+                "endingPos": 3,
+                "stem": "was",
+                "token": "Was",
+                "partOfSpeech": "PRON"
+              },
+              {
+                "position": 1,
+                "startingPos": 4,
+                "endingPos": 7,
+                "stem": "ist",
+                "token": "ist",
+                "partOfSpeech": "AUX"
+              },
+              {
+                "position": 2,
+                "startingPos": 8,
+                "endingPos": 11,
+                "stem": "die",
+                "token": "die",
+                "partOfSpeech": "DET"
+              },
+              {
+                "position": 3,
+                "startingPos": 12,
+                "endingPos": 22,
+                "stem": "hauptstadt",
+                "token": "Hauptstadt",
+                "partOfSpeech": "NOUN"
+              },
+              {
+                "position": 4,
+                "startingPos": 23,
+                "endingPos": 26,
+                "stem": "der",
+                "token": "der",
+                "partOfSpeech": "DET"
+              },
+              {
+                "position": 5,
+                "startingPos": 27,
+                "endingPos": 34,
+                "stem": "schweiz",
+                "token": "Schweiz",
+                "partOfSpeech": "PROPN"
+              },
+              {
+                "position": 6,
+                "startingPos": 34,
+                "endingPos": 35,
+                "stem": "?",
+                "token": "?",
+                "partOfSpeech": "PUNCT"
+              }
+            ]
+          }
+        ],
+        "language": "ger",
+        "languageIsReliable": true
+      },
+      "time": 0.01031,
+      "ok": true
+    }
+  ]
+}
