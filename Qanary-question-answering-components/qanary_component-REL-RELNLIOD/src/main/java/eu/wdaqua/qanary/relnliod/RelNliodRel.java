@@ -112,14 +112,15 @@ public class RelNliodRel extends QanaryComponent {
                 if (entity != null) {
                     InputStream instream = entity.getContent();
                     String text = IOUtils.toString(instream, StandardCharsets.UTF_8.name());
-                    logger.info(text);
+                    logger.info("received text: {}", text);
                     JSONObject response1 = (new JSONObject(text)).getJSONObject("response");
                     JSONArray jsonArraySent = (JSONArray) response1.get("sentences");
                     ArrayList<String> arrayListWords = textRazorDbSearch.createArrayWordsList(jsonArraySent);
-                    logger.info(arrayListWords.toString());
+                    logger.info("arrayListWords: {}", arrayListWords.toString());
                     textRazorDbSearch.createPropertyList(response1);
                     textRazorDbSearch.createDbLinkListSet(arrayListWords);
                     dbLinkListSet = textRazorDbSearch.getDbLinkListSet();
+                    //always false right now, due to wrong return of TextRazor, field "relations" is missing from JSON
                     relationsFlag = textRazorDbSearch.getRelationsFlag();
                     if (dbLinkListSet.isEmpty() && relationsFlag == true) {
                         textRazorDbSearch.createRePropertyList(response1);
