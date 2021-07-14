@@ -1,0 +1,30 @@
+{
+  "something": [
+    {
+      "query": "SELECT ?v1 WHERE { ?v1 ?v8 ?v6 .} ",
+      "slots": [
+        {
+          "s": "v6",
+          "p": "is",
+          "o": "rdf:Class|rdf:Resource"
+        },
+        {
+          "s": "v6",
+          "p": "verbalization",
+          "o": "Switzerland"
+        },
+        {
+          "s": "v8",
+          "p": "is",
+          "o": "rdf:Property"
+        },
+        {
+          "s": "v8",
+          "p": "verbalization",
+          "o": "capital"
+        }
+      ],
+      "score": "1.0"
+    }
+  ]
+}
