@@ -60,7 +60,7 @@ public class AylienNED extends QanaryComponent {
 	    ArrayList<Link> links = new ArrayList<Link>();
 	    
 	    try {
-			File f = new File("qanary_component-NED-Aylien/src/main/resources/questions.txt");
+			File f = new File("/home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-Aylien/src/main/resources/questions.txt");
 	    	FileReader fr = new FileReader(f);
 	    	BufferedReader br  = new BufferedReader(fr);
 			int flag = 0;
@@ -117,6 +117,7 @@ public class AylienNED extends QanaryComponent {
 	    httpget.addHeader("X-AYLIEN-TextAPI-Application-Key", "c7f250facfa39df49bb614af1c7b04f7");
 	    httpget.addHeader("X-AYLIEN-TextAPI-Application-ID", "6b3e5a8d");
 	    HttpResponse response = httpclient.execute(httpget);
+	    logger.info("http response: {}", response);
 	    try {    	 
 	    	HttpEntity entity = response.getEntity();
 	        if (entity != null) {
@@ -150,7 +151,7 @@ public class AylienNED extends QanaryComponent {
 	        		}
 	        	}
 	        }
-	        BufferedWriter buffWriter = new BufferedWriter(new FileWriter("qanary_component-NED-Aylien/src/main/resources/questions.txt", true));
+	        BufferedWriter buffWriter = new BufferedWriter(new FileWriter("/home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-Aylien/src/main/resources/questions.txt", true));
 	        Gson gson = new Gson();
 	        
 	        String json = gson.toJson(links);
