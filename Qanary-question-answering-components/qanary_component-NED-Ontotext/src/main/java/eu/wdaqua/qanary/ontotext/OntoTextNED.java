@@ -106,13 +106,15 @@ public class OntoTextNED extends QanaryComponent {
 				//STEP2
 				HttpClient httpclient = HttpClients.createDefault();
 				HttpPost httppost = new HttpPost("https://tag.ontotext.com/ces-en/extract");
-				httppost.addHeader("X-JwtToken", "<JWT Token goes here>");
+				//httppost.addHeader("X-JwtToken", "<JWT Token goes here>");
 				httppost.addHeader("Accept", "application/vnd.ontotext.ces+json");
 				httppost.addHeader("Content-Type","text/plain");
 				httppost.setEntity(new StringEntity(myQuestion));
+				logger.info("httppost,\n headers: {},\n entities: {}", httppost.getAllHeaders(), httppost.getEntity());
 				try {
 					HttpResponse response = httpclient.execute(httppost);
 					HttpEntity entity = response.getEntity();
+					logger.info("httpreply, entity: {}", entity);
 					if (entity != null) {
 						InputStream instream = entity.getContent();
 						String text = IOUtils.toString(instream, StandardCharsets.UTF_8.name());
@@ -171,8 +173,8 @@ public class OntoTextNED extends QanaryComponent {
 					// TODO Auto-generated catch block
 		 		} 
 				catch (IOException e1) {
-	    	logger.info("Except: {}", e1);
-	        // TODO Auto-generated catch block
+	    			logger.info("Except: {}", e1);
+	        		// TODO Auto-generated catch block
 	    		}
 			}
 		}
