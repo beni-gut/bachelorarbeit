@@ -150,10 +150,13 @@ public class DiambiguationClass extends QanaryComponent {
 		// Here, we need two parameters as input to be fetched from triplestore-
 		// question and language of the question.
 		// So first, Retrive the uri where the question is exposed
-		String sparql = "PREFIX qa:<http://www.wdaqua.eu/qa#> " + "SELECT ?questionuri " + "FROM <" + namedGraph + "> "
+		String sparql = "PREFIX qa:<http://www.wdaqua.eu/qa#> " //
+				+ "SELECT ?questionuri " //
+				+ "FROM <" + namedGraph + "> " //
 				+ "WHERE {?questionuri a qa:Question}";
 
 		ResultSet result = selectTripleStore(sparql, endpoint);
+		logger.info("TripleStore Result: {}", result);
 		String uriQuestion = result.next().getResource("questionuri").toString();
 		logger.info("Uri of the question: {}", uriQuestion);
 		// Retrive the question itself
