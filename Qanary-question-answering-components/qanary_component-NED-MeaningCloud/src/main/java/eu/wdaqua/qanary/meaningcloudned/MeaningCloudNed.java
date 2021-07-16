@@ -69,7 +69,7 @@ public class MeaningCloudNed extends QanaryComponent {
 		ArrayList<Selection> selections = new ArrayList<Selection>();
 		logger.info("Question {}", myQuestion);
 		 try {
-				File f = new File("questions.txt");
+				File f = new File("/home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/src/main/resources/questions.txt");
 		    	FileReader fr = new FileReader(f);
 		    	BufferedReader br  = new BufferedReader(fr);
 				int flag = 0;
@@ -170,7 +170,7 @@ public class MeaningCloudNed extends QanaryComponent {
 					}
 				}
 			}
-			BufferedWriter buffWriter = new BufferedWriter(new FileWriter("questions.txt", true));
+			BufferedWriter buffWriter = new BufferedWriter(new FileWriter("/home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/src/main/resources/questions.txt", true));
 	        Gson gson = new Gson();
 	        
 	        String json = gson.toJson(selections);
