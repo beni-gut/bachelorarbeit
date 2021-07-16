@@ -149,7 +149,9 @@ class PropertyRetrival {
 								
 					String sub = (String) qstn.get("s");
 					String obj = (String) qstn.get("o");
-					
+
+					System.out.println("sub: " + sub);
+					System.out.println("object: " + obj);
 					
 					if(obj.contains("rdf:"))
 					{	tempList.clear();
@@ -173,12 +175,14 @@ class PropertyRetrival {
 						{
 							tempList.add(word);
 						}
+						System.out.println("kWords 178: " + kWords);
 						prevSub = sub;
 					}
 					else
 					{
 						if(prevSub.equalsIgnoreCase(sub))
 						{
+							System.out.println("prevSub " + prevSub + " and sub " + sub);
 							//System.out.println("Inside==============================");
 						//	System.out.println("TempList: "+tempList.toString());
 							for(String temp: tempList)
@@ -188,18 +192,22 @@ class PropertyRetrival {
 									case "Property":
 										if(!p.property.contains(obj))
 										p.property.add(obj);
+										System.out.println("195, Property p: " + p);
 										break;
 									case "Resource":
 										if(!p.resource.contains(obj))
 										p.resource.add(obj);
+										System.out.println("200, Property p: " + p);
 										break;
 									case "Literal":
 										if(!p.resourceL.contains(obj))
 										p.resourceL.add(obj);
+										System.out.println("205, Property p: " + p);
 										break;
 									case "Class":
 										if(!p.classRdf.contains(obj))
 										p.classRdf.add(obj);
+										System.out.println("210, Property p: " + p);
 										break;
 								}
 							}
@@ -217,6 +225,7 @@ class PropertyRetrival {
 		{
 			e.printStackTrace();
 		}
+		System.out.println("228, Property p: " + p);
 		return p;
 		/*System.out.println("\nThe rdf:Resource List : "+resource.toString());
 		System.out.println("\nThe rdf:Property List : "+property.toString());
