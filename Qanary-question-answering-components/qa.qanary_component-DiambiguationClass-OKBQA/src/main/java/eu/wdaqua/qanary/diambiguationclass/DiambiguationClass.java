@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import eu.wdaqua.qanary.commons.QanaryUtils;
+import eu.wdaqua.qanary.exceptions.SparqlQueryFailed;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
@@ -120,9 +122,10 @@ public class DiambiguationClass extends QanaryComponent {
 			in.close();
 			xmlResp = response.toString();
 
-			System.out.println("Curl Response: \n" + xmlResp);
-			logger.info("Response {}", xmlResp);
+//			System.out.println("Curl Response: \n" + xmlResp);
+			logger.info("Response: {}", xmlResp);
 		} catch (Exception e) {
+			logger.error("Line 128, Error in CURL: {}", e);
 		}
 		return (xmlResp);
 
@@ -133,14 +136,17 @@ public class DiambiguationClass extends QanaryComponent {
 	 * component
 	 */
 	@Override
-	public QanaryMessage process(QanaryMessage myQanaryMessage) {
+	public QanaryMessage process(QanaryMessage myQanaryMessage) throws SparqlQueryFailed {
+
+		QanaryUtils qanaryUtils = this.getUtils(myQanaryMessage);
+
 		org.apache.log4j.Logger.getRootLogger().setLevel(org.apache.log4j.Level.OFF);
 		logger.info("process: {}", myQanaryMessage);
 		// TODO: implement processing of question
 
 		// STEP1: Retrieve the named graph and the endpoint
-		String endpoint = myQanaryMessage.getEndpoint().toASCIIString();
-		String namedGraph = myQanaryMessage.getInGraph().toASCIIString();
+		String endpoint = myQanaryMessage.getEndpoint().toString();
+		String namedGraph = myQanaryMessage.getInGraph().toString();
 		System.out.println("Graph is" + namedGraph);
 		logger.info("Endpoint: {}", endpoint);
 		logger.info("InGraph: {}", namedGraph);
@@ -155,7 +161,8 @@ public class DiambiguationClass extends QanaryComponent {
 				+ "FROM <" + namedGraph + "> " //
 				+ "WHERE {?questionuri a qa:Question}";
 
-		ResultSet result = selectTripleStore(sparql, endpoint);
+//		ResultSet result = selectTripleStore(sparql, endpoint);
+		ResultSet result = qanaryUtils.selectFromTripleStore(sparql);
 		logger.info("TripleStore Result: {}", result);
 		String uriQuestion = result.next().getResource("questionuri").toString();
 		logger.info("Uri of the question: {}", uriQuestion);
@@ -168,12 +175,12 @@ public class DiambiguationClass extends QanaryComponent {
 
 		// the below mentioned SPARQL query to fetch annotation of language from
 		// triplestore
-		String questionlang = "PREFIX qa:<http://www.wdaqua.eu/qa#> " + "SELECT ?lang " + "FROM <" + namedGraph + "> "
-				+ "WHERE {?q a qa:Question ." + " ?anno <http://www.w3.org/ns/openannotation/core/hasTarget> ?q ."
-				+ " ?anno <http://www.w3.org/ns/openannotation/core/hasBody> ?lang ."
-				+ " ?anno a qa:AnnotationOfQuestionLanguage}";
+//		String questionlang = "PREFIX qa:<http://www.wdaqua.eu/qa#> " + "SELECT ?lang " + "FROM <" + namedGraph + "> "
+//				+ "WHERE {?q a qa:Question ." + " ?anno <http://www.w3.org/ns/openannotation/core/hasTarget> ?q ."
+//				+ " ?anno <http://www.w3.org/ns/openannotation/core/hasBody> ?lang ."
+//				+ " ?anno a qa:AnnotationOfQuestionLanguage}";
 		// Now fetch the language, in our case it is "en".
-		ResultSet result1 = selectTripleStore(questionlang, endpoint);
+//		ResultSet result1 = selectTripleStore(questionlang, endpoint);
 		String language1 = "en";
 		logger.info("Langauge of the Question: {}", language1);
 
@@ -194,14 +201,15 @@ public class DiambiguationClass extends QanaryComponent {
 		data = "{  \"string\":\"" + question + "\",\"language\":\"" + language1 + "\"}";// "{ \"string\": \"Which river
 																						// flows through Seoul?\",
 																						// \"language\": \"en\"}";
-		System.out.println("\ndata :" + data);
-		System.out.println("\nComponent : 21");
+		logger.info("data: {}", data);
+		logger.info("Component: 21");
 		String output1 = "";
 		// pass the input in CURL command and call the function.
 
 		try {
 			output1 = DiambiguationClass.runCurlPOSTWithParam(url, data, contentType);
 		} catch (Exception e) {
+			logger.error("Error in CURL: {}", e);
 		}
 		// System.out.println("The output template is:" +output1);
 		logger.info("The output template is: {}", output1);
@@ -221,8 +229,8 @@ public class DiambiguationClass extends QanaryComponent {
 		
 		contentType = "application/json";
 
-		System.out.println("\ndata :" + data);
-		System.out.println("\nComponent : 7");
+		logger.info("data : {}", data);
+		logger.info("Component : 7");
 		output1 = "";
 		try {
 			System.out.println("Calling inside ===============");
