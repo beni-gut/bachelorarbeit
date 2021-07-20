@@ -1,0 +1,20 @@
+{
+  "received": [
+    {
+      "query": "curl -g -H 'Accept: application/json' 'https://dbpedia.org/sparql?query=select+?uri+where+{+?uri+<http://dbpedia.org/ontology/capital>+<http://dbpedia.org/resource/Switzerland>.+}' "
+    },
+    {
+      "head": {
+        "link": [],
+        "vars": [
+          "uri"
+        ]
+      },
+      "results": {
+        "distinct": false,
+        "ordered": true,
+        "bindings": []
+      }
+    }
+  ]
+}
