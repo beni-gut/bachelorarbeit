@@ -6,10 +6,9 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 
-import org.apache.jena.query.Query;
-import org.apache.jena.query.QueryFactory;
-import org.apache.jena.query.ResultSet;
-import org.apache.jena.query.ResultSetFormatter;
+import org.apache.jena.query.*;
+import org.apache.jena.sparql.engine.binding.Binding;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -67,9 +66,9 @@ public class SparqlExecuter extends QanaryComponent {
   			+ "} "
   			+ "ORDER BY DESC(?score) LIMIT 1"  ;
 		ResultSet resultset = myQanaryUtils.selectFromTripleStore(sparql);
-                String sparqlQuery="";
-                while (resultset.hasNext()) {
-			sparqlQuery = resultset.next().get("sparql").toString().replace("\\\"", "\"").replace("\\n", "\n");	
+		String sparqlQuery="";
+		while (resultset.hasNext()) {
+			sparqlQuery = resultset.next().get("sparql").toString().replace("\\\"", "\"").replace("\\n", "\n");
 		}
 		logger.info("Generated SPARQL query: {} ", sparqlQuery);
 		// STEP 2: execute the first sparql query
@@ -94,10 +93,18 @@ public class SparqlExecuter extends QanaryComponent {
                 	ResultSetFormatter.outputAsJSON(outputStream, result);
                 	json = new String(outputStream.toByteArray(), "UTF-8");
         	} else {
-               		ResultSet result = myQanaryUtils.selectFromTripleStore(sparqlQuery, endpoint);
-                	ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                	ResultSetFormatter.outputAsJSON(outputStream, result);
-                	json = new String(outputStream.toByteArray(), "UTF-8");
+				ResultSet result = ResultSetFactory.copyResults(myQanaryUtils.selectFromTripleStore(sparqlQuery, endpoint));
+
+				/*
+				while (result.hasNext()) {
+					QuerySolution testResult = result.next();
+					logger.info("Line 100, testResult: {}", testResult);
+				}
+				 */
+
+				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+				ResultSetFormatter.outputAsJSON(outputStream, result);
+				json = new String(outputStream.toByteArray(), "UTF-8");
         	}
         	logger.info("Generated answers in RDF json: {}", json);
 

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 //import org.json.parser.JSONParser;
+import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -213,30 +214,39 @@ public class QanaryGerbilController {
         JSONArray answersArray = new JSONArray();
         JSONObject answersObj = new JSONObject();
 
-        //in answers, head contains vars, defines which type of variable will be returned
-        JSONObject head = new JSONObject();
-        JSONArray vars = new JSONArray();
-        //variable data
-        vars.add("uri"); //TEST
-        //add objects to wrappers
-        head.put("vars", vars);
+//        //in answers, head contains vars, defines which type of variable will be returned
+//        JSONObject head = new JSONObject();
+//        JSONArray vars = new JSONArray();
+//        //variable data
+//        vars.add("uri"); //TEST
+//        //add objects to wrappers
+//        head.put("vars", vars);
+//
+//        //results contains the bindings of the results
+//        JSONObject results = new JSONObject();
+//        JSONArray bindingsArray = new JSONArray();
+//        JSONObject dataObj = new JSONObject();
+//        JSONObject data = new JSONObject();
+//        //answer data
+//        data.put("type", "uri"); //TEST
+//        data.put("value", "the correct dbpedia uri"); //TEST
+//        //add to wrappers
+//        dataObj.put("uri", data);
+//        bindingsArray.add(dataObj);
+//        results.put("bindings", bindingsArray);
+//
+//        //add everything into answers array
+//        answersObj.put("head", head);
+//        answersObj.put("results", results);
 
-        //results contains the bindings of the results
-        JSONObject results = new JSONObject();
-        JSONArray bindingsArray = new JSONArray();
-        JSONObject dataObj = new JSONObject();
-        JSONObject data = new JSONObject();
-        //answer data
-        data.put("type", "uri"); //TEST
-        data.put("value", "the correct dbpedia uri"); //TEST
-        //add to wrappers
-        dataObj.put("uri", data);
-        bindingsArray.add(dataObj);
-        results.put("bindings", bindingsArray);
+        //JsonResult is what's contained in the "answers" Array
+        //so "head" and "results" as next-level Objects/Arrays
+        String qanaryJsonAnswerString = (String) myQanaryQuestion.getJsonResult();
+        //Parse the retrieved String to a JSON Object
+        JSONParser parser = new JSONParser();
+        answersObj = (JSONObject) parser.parse(qanaryJsonAnswerString);
 
-        //add everything into answers array
-        answersObj.put("head", head);
-        answersObj.put("results", results);
+        //add the Object to the Array
         answersArray.add(answersObj);
 
 
@@ -247,7 +257,7 @@ public class QanaryGerbilController {
 
         //put everything into wrapper object
         //id?
-        questionsTtem.put("id", "1"); //TEST
+//        questionsTtem.put("id", "1"); //TEST
         questionsTtem.put("question", questionDataArray);
         questionsTtem.put("query", sparqlQuery);
         questionsTtem.put("answers", answersArray);
@@ -257,7 +267,6 @@ public class QanaryGerbilController {
 
         //isn't properly returned yet?
         logger.info("Returned JSON object: {}", questionsObj);
-        //question.put("answers", myQanaryQuestion.getJsonResult());
 
         return new ResponseEntity<JSONObject>(questionsObj,HttpStatus.OK);
 
