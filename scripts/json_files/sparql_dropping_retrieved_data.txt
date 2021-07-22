@@ -1,0 +1,17 @@
+2021-07-22 19:49:09.498  INFO 6534 --- [io-10010-exec-3] eu.wdaqua.qanary.commons.QanaryUtils     : selectFromTripleStore: SELECT on http://dbpedia.org/sparql: SELECT DISTINCT ?uri WHERE { <http://dbpedia.org/resource/Salt_Lake_City> <http://dbpedia.org/ontology/timeZone> ?uri .}
+2021-07-22 19:49:09.498 DEBUG 6534 --- [io-10010-exec-3] eu.wdaqua.qanary.commons.QanaryUtils     : selectFromTripleStore: execute from tested endpoint: http://dbpedia.org/sparql
+2021-07-22 19:49:09.891 DEBUG 6534 --- [io-10010-exec-3] eu.wdaqua.qanary.commons.QanaryUtils     : runtime measurement: 393 ms for SELECT on http://dbpedia.org/sparql: SELECT DISTINCT ?uri WHERE { <http://dbpedia.org/resource/Salt_Lake_City> <http://dbpedia.org/ontology/timeZone> ?uri .}
+results:
+( ?uri = <http://dbpedia.org/resource/Mountain_Time_Zone> )
+2021-07-22 19:49:09.891  INFO 6534 --- [io-10010-exec-3] e.w.q.sparqlexecuter.SparqlExecuter      : Generated answers in RDF json: {
+  "head": {
+    "vars": [ "uri" ]
+  } ,
+  "results": {
+    "bindings": [
+
+    ]
+  }
+}
+
+2021-07-22 19:49:09.891  INFO 6534 --- [io-10010-exec-3] e.w.q.sparqlexecuter.SparqlExecuter      : Push the the JSON object to the named graph reserved for the answer
