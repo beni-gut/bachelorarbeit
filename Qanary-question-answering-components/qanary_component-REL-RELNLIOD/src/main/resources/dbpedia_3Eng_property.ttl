@@ -1015,3 +1015,5 @@
 <http://dbpedia.org/ontology/developer> <http://www.w3.org/2000/01/rdf-schema#label> "develops" .
 <http://dbpedia.org/ontology/developer> <http://www.w3.org/2000/01/rdf-schema#label> "developed" .
 <http://dbpedia.org/ontology/developer> <http://www.w3.org/2000/01/rdf-schema#label> "developers" .
+
+<http://dbpedia.org/ontology/capital> <http://www.w3.org/2000/01/rdf-schema#label> "capital" .

@@ -1,0 +1,23 @@
+after manually adding "capital" to the TTL file
+enabled the cache to know how to store questions with the correct result, so as to not have to wait >100 secs when using the alternative REL linker OKBQA
+new output:
+
+2021-07-25 18:00:16.537  INFO 7506 --- [nio-8014-exec-4] eu.wdaqua.qanary.relnliod.RelNliodRel    : Here  [http://dbpedia.org/ontology/capital]
+2021-07-25 18:00:16.537  INFO 7506 --- [nio-8014-exec-4] eu.wdaqua.qanary.relnliod.RelNliodRel    : result to cache: eu.wdaqua.qanary.relnliod.RelNliodRel$FileCacheResult@6df204b
+2021-07-25 18:00:16.538  INFO 7506 --- [nio-8014-exec-4] eu.wdaqua.qanary.relnliod.RelNliodRel    : test for cache result: true
+2021-07-25 18:00:16.538  INFO 7506 --- [nio-8014-exec-4] eu.wdaqua.qanary.relnliod.RelNliodRel    : dbLinkListSet: [http://dbpedia.org/ontology/capital]
+2021-07-25 18:00:16.538  INFO 7506 --- [nio-8014-exec-4] eu.wdaqua.qanary.relnliod.RelNliodRel    : apply vocabulary alignment on outgraph urn:graph:5f35e2db-6eb5-45b0-9fd3-727c28b474b4
+
+
+meddled with code:
+line 93ff
+
+        boolean hasCacheResult = false;
+        if (cacheEnabled) {
+            FileCacheResult cacheResult = readFromCache(myQuestion);
+            logger.info("result to cache: {}", cacheResult);
+            hasCacheResult = cacheResult.hasCacheResult;
+            logger.info("test for cache result: {}", hasCacheResult);
+            dbLinkListSet.addAll(cacheResult.links);
+            logger.info("dbLinkListSet: {}", dbLinkListSet);
+        }
