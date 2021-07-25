@@ -45,27 +45,28 @@ public class SparqlExecuter extends QanaryComponent {
 		logger.info("process: {}", myQanaryMessage);
 		QanaryUtils myQanaryUtils = this.getUtils(myQanaryMessage);
 	      QanaryQuestion<String> myQanaryQuestion = new QanaryQuestion(myQanaryMessage);
-	      String myQuestion = myQanaryQuestion.getTextualRepresentation();
+	      //String myQuestion = myQanaryQuestion.getTextualRepresentation();
 	      URI myQuestionUri = myQanaryQuestion.getUri();
 		// TODO: implement processing of question
-		String sparql="PREFIX qa: <http://www.wdaqua.eu/qa#> " //
-    			+ "PREFIX oa: <http://www.w3.org/ns/openannotation/core/> " //
-  			+ "SELECT ?sparql " //
-  			+ "FROM <"+ myQanaryMessage.getInGraph() + "> " //
-  			+ "WHERE { " //
+		String sparql="\nPREFIX qa: <http://www.wdaqua.eu/qa#> " //
+    			+ "PREFIX oa: <http://www.w3.org/ns/openannotation/core/> \n" //
+  			+ "SELECT ?sparql \n" //
+  			+ "FROM <"+ myQanaryMessage.getInGraph() + "> \n" //
+  			+ "WHERE { \n" //
   			+ "  ?a a qa:AnnotationOfAnswerSPARQL . " //
-  			+ "  OPTIONAL {?a oa:hasBody ?sparql } " //
+  			+ "  OPTIONAL {?a oa:hasBody ?sparql } \n" //
   			//+ "  ?a qa:hasScore ?score . " //
-            + "  ?a oa:annotatedAt ?time . " // 
+            + "  ?a oa:annotatedAt ?time . " //
             + "  { " //
-            + "    SELECT ?time { " //
-            + "     ?a a qa:AnnotationOfAnswerSPARQL . " //
-            + "     ?a oa:annotatedAt ?time . " //
-  	        + "    } ORDER BY DESC(?time) limit 2 " //
+            + "    SELECT ?time { \n" //
+            + "     ?a a qa:AnnotationOfAnswerSPARQL . \n" //
+            + "     ?a oa:annotatedAt ?time . \n" //
+  	        + "    } ORDER BY DESC(?time) LIMIT 2 \n" //
             + "  } " //
   			+ "} "
   			+ "ORDER BY DESC(?score) LIMIT 1"  ;
 		ResultSet resultset = myQanaryUtils.selectFromTripleStore(sparql);
+		logger.info("after resultSet");
 		String sparqlQuery="";
 		while (resultset.hasNext()) {
 			sparqlQuery = resultset.next().get("sparql").toString().replace("\\\"", "\"").replace("\\n", "\n");
