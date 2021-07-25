@@ -101,6 +101,7 @@ public class RelNliodRel extends QanaryComponent {
             HttpPost httppost = new HttpPost(textRazorServiceURL);
             httppost.setHeader("x-textrazor-key", textRazorServiceKey);
             httppost.setHeader("Content-Type", "application/x-www-form-urlencoded");
+            //httppost.setHeader("languageOverride", "ger");
             List<NameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair("text", myQuestion.toLowerCase()));
             params.add(new BasicNameValuePair("extractors", "relations,words"));
