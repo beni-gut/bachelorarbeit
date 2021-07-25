@@ -1017,3 +1017,6 @@
 <http://dbpedia.org/ontology/developer> <http://www.w3.org/2000/01/rdf-schema#label> "developers" .
 
 <http://dbpedia.org/ontology/capital> <http://www.w3.org/2000/01/rdf-schema#label> "capital" .
+
+<http://dbpedia.org/ontology/timeZone> <http://www.w3.org/2000/01/rdf-schema#label> "time zone" .
+<http://dbpedia.org/ontology/timeZone> <http://www.w3.org/2000/01/rdf-schema#label> "Zeitzone" .

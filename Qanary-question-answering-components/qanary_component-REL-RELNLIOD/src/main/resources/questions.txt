@@ -1,1 +1,3 @@
 What is the capital of Switzerland? Answer: [http://dbpedia.org/ontology/capital]
+What is the time zone of Salt Lake City? Answer: [http://dbpedia.org/ontology/timeZone]
+In welcher Zeitzone liegt Salt Lake City? Answer: [http://dbpedia.org/ontology/timeZone]
