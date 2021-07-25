@@ -570,7 +570,8 @@ public class QanaryQuestion<T> {
 		while (resultset.hasNext()) {
 			sparqlAnnotation = resultset.next().get("json").asLiteral().toString();
 		}
-		return sparqlAnnotation.replace("\\\"", "\"");
+		sparqlAnnotation = sparqlAnnotation.replace("\\\"", "\"");
+		return sparqlAnnotation;
 	}
 
 	public void putTextRepresentation(String text) throws Exception {
