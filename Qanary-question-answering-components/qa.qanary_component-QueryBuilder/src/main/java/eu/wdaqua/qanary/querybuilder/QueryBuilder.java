@@ -248,6 +248,7 @@ public class QueryBuilder extends QanaryComponent {
 					+ "}";
 			myQanaryUtils.updateTripleStore(sparql, myQanaryMessage.getEndpoint().toString());
 
+			/*
 			Query query = QueryFactory.create(generatedQuery);
 			QueryExecution exec = QueryExecutionFactory.sparqlService(dbpediaSparqEndpoint, query);
 
@@ -276,6 +277,7 @@ public class QueryBuilder extends QanaryComponent {
 					+ "  BIND (<" + answerID + "> as ?answer) ." //
 					+ "}";
 			myQanaryUtils.updateTripleStore(sparql, myQanaryMessage.getEndpoint().toString());
+			*/
 
 		}
 		return myQanaryMessage;
