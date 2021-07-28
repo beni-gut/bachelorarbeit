@@ -1,0 +1,2 @@
+What is the capital of Switzerland? Answer: {v8={http://dbpedia.org/ontology/capital=0.6666666666666666}}
+How many seats does the home stadium of FC Porto have Answer: {}

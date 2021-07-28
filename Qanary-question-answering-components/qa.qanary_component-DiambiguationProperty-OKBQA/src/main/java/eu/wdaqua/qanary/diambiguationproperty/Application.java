@@ -2,7 +2,7 @@ package eu.wdaqua.qanary.diambiguationproperty;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+//import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 import eu.wdaqua.qanary.component.QanaryComponent;
 
 @SpringBootApplication
-@EnableAutoConfiguration
+//@EnableAutoConfiguration
 @ComponentScan("eu.wdaqua.qanary.component")
 /**
  * basic class for wrapping functionality to a Qanary component
@@ -25,8 +25,10 @@ public class Application {
 	* @return
 	*/
 	@Bean
-	public QanaryComponent qanaryComponent(@Value("${spring.application.name}") final String applicationName) {
-		return new DiambiguationProperty(applicationName);
+	public QanaryComponent qanaryComponent(@Value("${spring.application.name}") final String applicationName,
+										   @Value("${diambiguation-property.cache.enabled}") final Boolean cacheEnabled,
+										   @Value("${diambiguation-property.cache.file}") final String cacheFile) {
+		return new DiambiguationProperty(applicationName, cacheEnabled, cacheFile);
 	}
 	
 	
