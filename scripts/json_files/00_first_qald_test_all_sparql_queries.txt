@@ -1,0 +1,359 @@
+1. Question
+2. Graph ID
+3. REL
+4. SPARQL Query
+5. NED
+
+What is the time zone of Salt Lake City? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:a4c89cb9-49ce-4c75-bc86-b06fbebdfe53>
+    http://dbpedia.org/ontology/timeZone
+    "SELECT DISTINCT ?uri WHERE { <http://dbpedia.org/resource/Salt_Lake_City> <http://dbpedia.org/ontology/timeZone> ?uri .}"
+    http://dbpedia.org/resource/Salt_Lake_City
+
+Who killed Caesar? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:3fb1387c-8c95-4675-b691-5bfce84ce38d>
+    http://dbpedia.org/property/killed
+    ""
+    ""
+
+What is the highest mountain in Germany? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:9b3a28b2-7880-4902-aa93-27a9f04e14c1>
+    http://dbpedia.org/property/highest
+    "SELECT (COUNT(DISTINCT ?x) as ?c) WHERE{ <http://dbpedia.org/resource/Germany> <http://dbpedia.org/property/highest> ?v1 . }"
+    http://dbpedia.org/resource/Germany
+
+Which American presidents were in office during the Vietnam War? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:ddd95394-8f44-4bff-b610-e0bb6006ac22>
+    http://dbpedia.org/ontology/president
+    ""
+    file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/ http://dbpedia.org/resource/Vietnam_War
+
+Butch Otter is the governor of which U.S. state? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:3d832c32-1064-4e8c-b601-c320ede4938d>
+    http://dbpedia.org/property/governor
+    ""
+    file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/ http://dbpedia.org/resource/United_States
+
+How many gold medals did Michael Phelps win at the 2008 Olympics? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:b6f1065e-f4ab-4bf6-ba4e-8ee103b234a1>
+    ""
+    ""
+    http://dbpedia.org/resource/Michael_Phelps
+
+Which artists were born on the same date as Rachel Stevens? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:d7c10689-efa5-4380-ba9e-56a688709ae5>
+    http://dbpedia.org/property/bore
+    "SELECT DISTINCT ?uri WHERE { <file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/> <http://dbpedia.org/property/bore> ?uri .}"
+    file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/
+
+What is the profession of Frank Herbert? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:ff6808ed-9a3d-4e54-b2b8-54a5f7d02af6>
+    http://dbpedia.org/ontology/profession
+    "SELECT DISTINCT ?uri WHERE { <file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/> <http://dbpedia.org/ontology/profession> ?uri .}"
+    file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/
+
+Are Taiko some kind of Japanese musical instrument? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:e6179bfd-9747-4b70-8fa3-d4b7747648bc>
+    ""
+    ""
+    file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/
+
+Are Taiko some kind of Japanese musical instrument? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:e6179bfd-9747-4b70-8fa3-d4b7747648bc>
+    ""
+    ""
+    file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/
+
+How many seats does the home stadium of FC Porto have? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:faced990-0f22-446e-8545-b0b905ce3b69>
+    http://dbpedia.org/ontology/homeArena
+    ""
+    file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/ http://dbpedia.org/resource/Porto_District http://dbpedia.org/resource/Porto
+
+Which frequent flyer program has the most airlines? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:5da2ce93-677a-4ba3-aaa7-fab5433ee564>
+    http://dbpedia.org/property/airline
+    ""
+    ""
+
+Which European countries have a constitutional monarchy? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:dffaf546-3733-4771-9214-9e11da532910>
+    ""
+    ""
+    ""
+
+Which countries have places with more than two caves? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:ddc4cadb-62ba-4ae6-9ac9-04847791af38>
+    http://dbpedia.org/property/place
+    ""
+    ""
+
+Which airports are located in California, USA? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:a520b33c-9ef4-4cf4-a625-a640c87f0c93>
+    http://dbpedia.org/property/airport
+    ""
+    http://dbpedia.org/resource/California http://dbpedia.org/resource/United_States
+
+What are the nicknames of San Francisco? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:09c6a1cc-00b5-4e8d-9f2e-95ceaf9eb971>
+    http://dbpedia.org/property/nicknames
+    ""
+    http://dbpedia.org/resource/San_Francisco file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/ http://dbpedia.org/resource/San_Francisco_de_MacorÃ­s
+
+What is Angela Merkel’s birth name? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:b39e0976-3201-4756-b8cf-0307199ca2d9>
+    ""
+    ""
+    http://dbpedia.org/resource/Angela_Merkel
+
+Who is the mayor of Berlin? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:f34ebec0-5572-4352-8db8-f0bf865f2f70>
+    http://dbpedia.org/ontology/mayor
+    ""
+    file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/ http://dbpedia.org/resource/Berlin
+
+Which countries in the European Union adopted the Euro? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:b98453ce-8104-4f06-a62d-7e8b4dc0ce6e>
+    http://dbpedia.org/property/adopted
+    "ASK WHERE { <http://dbpedia.org/resource/European_Union> <http://dbpedia.org/property/adopted> ?v1 . }"
+    http://dbpedia.org/resource/European_Union
+
+Which software has been published by Mean Hamster Software? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:4b739262-bcb8-4df1-b114-179b600a3c96>
+    http://dbpedia.org/ontology/publisher
+    "SELECT DISTINCT ?uri WHERE { <file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/> <http://dbpedia.org/ontology/publisher> ?uri .}"
+    file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/
+
+Which country was Bill Gates born in? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:7ee6db60-e8b5-4ac1-b673-7c57a3624c39>
+    http://dbpedia.org/property/bore
+    "SELECT DISTINCT ?uri WHERE { <http://dbpedia.org/resource/Bill_Gates> <http://dbpedia.org/property/bore> ?uri .}"
+    http://dbpedia.org/resource/Bill_Gates
+
+How many grand-children did Jacques Cousteau have? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:9ee4e83c-0da7-4b7e-8605-4c26337934b0>
+    ""
+    ""
+    http://dbpedia.org/resource/Jacques_Cousteau
+
+Give me all professional skateboarders from Sweden. with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:06daad5c-2f43-4864-bc35-065351084a9c>
+    ""
+    ""
+    http://dbpedia.org/resource/Sweden
+
+Which monarchs of the United Kingdom were married to a German? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:15bbb785-4d3f-4fdd-b6fc-74c9cdbbfe49>
+    http://dbpedia.org/ontology/monarch
+    "ASK WHERE { <http://dbpedia.org/resource/United_Kingdom> <http://dbpedia.org/ontology/monarch> ?v1 . }"
+    http://dbpedia.org/resource/United_Kingdom
+
+Give me all Argentine films. with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:b7e6a5b3-4544-4ec0-9126-007a1cf2d045>
+    ""
+    ""
+    ""
+
+How did Michael Jackson die? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:c79ea8d7-3679-4e8b-a4b2-944e25b70ccc>
+    ""
+    ""
+    http://dbpedia.org/resource/Michael_Jackson
+
+Which U.S. state has been admitted latest? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:0b3ad908-0712-4aa5-b189-ea832d89b9e2>
+    ""
+    ""
+    http://dbpedia.org/resource/United_States
+
+Which classes does the Millepede belong to? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:0dc41701-e426-44a5-8eef-c7502ecff259>
+    http://dbpedia.org/ontology/class
+    ""
+    ""
+
+Give me the homepage of Forbes. with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:65083e08-bfaa-4981-a2aa-4933a1437a6e>
+    ""
+    ""
+    file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/ file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/ http://dbpedia.org/resource/Forbes
+
+Who is the husband of Amanda Palmer? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:b4ce03c1-5f9b-4665-adce-6e972f91d94a>
+    http://dbpedia.org/ontology/spouse
+    "SELECT DISTINCT ?uri WHERE { <file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/> <http://dbpedia.org/ontology/spouse> ?uri .}"
+    file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/
+
+Who painted The Storm on the Sea of Galilee? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:4e7b861b-802c-439c-9d1f-8adb086ff1cd>
+    http://dbpedia.org/property/painter
+    ""
+    file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/ http://dbpedia.org/resource/Sea_of_Galilee
+
+What is the highest place of Karakoram? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:7c892528-c0d1-4ce9-b3af-303749603c4d>
+    http://dbpedia.org/property/place http://dbpedia.org/property/highest
+    "SELECT DISTINCT ?uri WHERE { ?uri <http://dbpedia.org/property/place> <file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/> . ?uri <http://dbpedia.org/property/highest> <http://dbpedia.org/resource/Karakoram> . }"
+    http://dbpedia.org/resource/Karakoram file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/
+
+When did Finland join the EU? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:7addd1ab-8447-45ff-9565-87b6107c5b34>
+    http://dbpedia.org/property/join
+    ""
+    http://dbpedia.org/resource/Finland http://dbpedia.org/resource/European_Union
+
+Which actors play in Big Bang Theory? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:327e49fa-2833-46ef-a4aa-b1d7ef05ab37>
+    http://dbpedia.org/ontology/computingInput
+    "SELECT DISTINCT ?uri WHERE { <file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/> <http://dbpedia.org/ontology/computingInput> ?uri .}"
+    file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/
+
+Which computer scientist won an oscar? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:927c8b01-057d-4123-9785-ea485210ec7a>
+    ""
+    ""
+    ""
+
+Who wrote Harry Potter? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:5fb46a7f-283f-415b-bdbe-5c48a9c14fc1>
+    ""
+    ""
+    http://dbpedia.org/resource/Harry_Potter
+
+Give me all writers that won the Nobel Prize in literature. with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:17074b77-ef13-4766-bcd4-d5889f49e40e>
+    ""
+    ""
+    http://dbpedia.org/resource/Nobel_Prize
+
+Give me English actors starring in Lovesick. with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:bfb4e72a-9f04-4abd-8e52-00d5fc2a6041>
+    ""
+    ""
+    ""
+
+What is the nick name of Baghdad? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:b5e94085-ea47-4746-b5cd-06a19b529118>
+    http://dbpedia.org/property/namo
+    "SELECT DISTINCT ?uri WHERE { <http://dbpedia.org/resource/Baghdad> <http://dbpedia.org/property/namo> ?uri .}"
+    http://dbpedia.org/resource/Baghdad
+
+In which city was the president of Montenegro born? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:1a3f032e-ddfe-4571-ae0b-0ada607f4c10>
+    http://dbpedia.org/ontology/president
+    "SELECT DISTINCT ?uri WHERE { <file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/> <http://dbpedia.org/ontology/president> ?uri .}"
+    file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/
+
+Which U.S. state has the highest population density? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:46112e1e-6e6e-4382-961c-a12504440d23>
+    http://dbpedia.org/ontology/populationUrbanDensity http://dbpedia.org/property/highest
+    "SELECT DISTINCT ?uri WHERE { <http://dbpedia.org/resource/United_States> <http://dbpedia.org/ontology/populationUrbanDensity> ?x . ?x <http://dbpedia.org/property/highest> ?uri . }"
+    http://dbpedia.org/resource/United_States
+
+What is the longest river in China? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:e7ddd600-7359-4930-87c0-3b1b121561e0>
+    http://dbpedia.org/property/longe
+    "SELECT DISTINCT ?uri WHERE { <http://dbpedia.org/resource/China> <http://dbpedia.org/property/longe> ?uri .}"
+    http://dbpedia.org/resource/China
+
+What is the area code of Berlin? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:81cfddd9-bfec-40ea-baa4-fd8f68a6e628>
+    http://dbpedia.org/ontology/areaCode
+    ""
+    file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/ http://dbpedia.org/resource/Berlin
+
+How many scientists graduated from an Ivy League university? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:bb45aaa3-c1ad-4c58-b04f-3f7a4f36175d>
+    ""
+    ""
+    http://dbpedia.org/resource/Ivy_League
+
+Which professional surfers were born in Australia? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:4fd83945-e785-43ae-852c-af823045b282>
+    http://dbpedia.org/property/bore
+    "SELECT DISTINCT ?uri WHERE { <http://dbpedia.org/resource/Australia> <http://dbpedia.org/property/bore> ?uri .}"
+    http://dbpedia.org/resource/Australia
+
+Give me all Dutch parties. with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:7e4b86a1-559a-48f4-b858-1f86a8480f57>
+    ""
+    ""
+    ""
+
+How many moons does Mars have? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:a77b0661-7025-4305-bdf1-627e03e7d3ca>
+    http://dbpedia.org/property/mar
+    "ASK WHERE { <http://dbpedia.org/resource/Mars> <http://dbpedia.org/property/mar> <file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/> .}"
+    file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/ http://dbpedia.org/resource/Mars
+
+What is Batman's real name? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:bd885594-d0d9-4bf0-9738-b2e510b57482>
+    ""
+    ""
+    http://dbpedia.org/resource/Batman
+
+What is Elon Musk famous for? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:90cf6fea-2cd4-4dd5-a663-d51bc00843e1>
+    ""
+    ""
+    http://dbpedia.org/resource/Elon_Musk
+
+Who is the author of WikiLeaks? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:edd47bb7-239e-406b-9b96-ab26a8ccd71f>
+    http://dbpedia.org/ontology/writer
+    "SELECT DISTINCT ?uri WHERE { <http://dbpedia.org/resource/WikiLeaks> <http://dbpedia.org/ontology/writer> ?uri .}"
+    http://dbpedia.org/resource/WikiLeaks
+
+Sean Parnell was the governor of which U.S. state? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:00bfebbb-271f-4c93-81b9-e95cb9887358>
+    http://dbpedia.org/property/governor
+    ""
+    file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/ http://dbpedia.org/resource/United_States
+
+How many years was the Ford Model T manufactured? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:283df5c9-4054-48f6-bcea-0cdfb371dd82>
+    ""
+    ""
+    file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/
+
+When was Carlo Giuliani shot? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:a5d3560c-c2d0-4042-89e0-cc9565ca6a47>
+    ""
+    ""
+    file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/
+
+Give me all animals that are extinct. with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:b17fd5a4-5371-4e2e-a57a-95092ea0a1bd>
+    ""
+    ""
+    ""
+
+Who was the wife of President Lincoln? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:9ad8c852-fc61-4244-b7db-57d72b52ceaa>
+    http://dbpedia.org/property/wife
+    "SELECT DISTINCT ?uri WHERE { <file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/> <http://dbpedia.org/property/wife> ?uri .}"
+    file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/
+
+How many awards has Bertrand Russell? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:73a6cb61-3f87-4d7f-a339-a6719cfd0dc9>
+    ""
+    ""
+    file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/ http://dbpedia.org/resource/Bertrand_Russell
+
+Is Pamela Anderson a vegan? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:78356386-50cd-419d-aaea-ce4522378e1f>
+    ""
+    ""
+    file:///home/andokai/bachelorarbeit/Qanary-question-answering-components/qanary_component-NED-MeaningCloud/target/
+
+Which space probes were sent into orbit around the sun? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:5ed46bcb-43bd-4c31-9774-99fc811eb9b0>
+    http://dbpedia.org/property/sen
+    ""
+    ""
+
+Which German cities have more than 250000 inhabitants? with [MeaningCloudNed, DiambiguationProperty, QueryBuilder, SparqlExecuter]
+    <urn:graph:2aaa6263-9a1f-458c-9db3-eef673348410>
+    http://dbpedia.org/property/inhabitants
+    ""
+    ""
