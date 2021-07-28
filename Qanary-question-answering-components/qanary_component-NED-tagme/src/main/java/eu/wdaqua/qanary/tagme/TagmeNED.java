@@ -76,7 +76,7 @@ public class TagmeNED extends QanaryComponent {
 
 		List<NamedEntity> links = new ArrayList<>();
 
-		logger.info("Question: {}", myQuestion);
+		logger.info("Line 79, Question: {}", myQuestion);
 		boolean hasCacheResult = false;
 		if (cacheEnabled) {
 			FileCacheResult cacheResult = readFromCache(myQuestion);
@@ -93,29 +93,29 @@ public class TagmeNED extends QanaryComponent {
 
 		for (NamedEntity l : links) {
 			String sparql = "" //
-					+ "PREFIX qa: <http://www.wdaqua.eu/qa#> \n" //
-					+ "PREFIX oa: <http://www.w3.org/ns/openannotation/core/>  \n" //
-					+ "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n" //
+					+ "PREFIX qa: <http://www.wdaqua.eu/qa#> " //
+					+ "PREFIX oa: <http://www.w3.org/ns/openannotation/core/>  " //
+					+ "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" //
 					+ "INSERT { \n" //
 					+ "GRAPH <" + myQanaryQuestion.getOutGraph() + "> { \n" //
-					+ "  ?a a qa:AnnotationOfInstance . \n" //
-					+ "  ?a oa:hasTarget [ \n" //
-					+ "           a    oa:SpecificResource; \n" //
-					+ "           oa:hasSource    <" + myQanaryQuestion.getUri() + ">; \n" //
-					+ "           oa:hasSelector  [ \n" //
-					+ "                    a oa:TextPositionSelector ; \n" //
-					+ "                    oa:start \"" + l.getBegin() + "\"^^xsd:nonNegativeInteger ; \n" //
-					+ "                    oa:end  \"" + l.getEnd() + "\"^^xsd:nonNegativeInteger ; \n" //
-					+ "                    qa:score \"" + l.getLinkProbability() + "\"^^xsd:float \n" //
-					+ "           ] \n" //
-					+ "  ] . \n" //
-					+ "  ?a oa:hasBody <" + l.getLink() + "> ; \n" //
-					+ "     oa:annotatedBy <urn:qanary:" + this.applicationName + "> ; \n" //
-					+ "	    oa:annotatedAt ?time  " + "}} \n" //
-					+ "WHERE { \n" //
-					+ "  BIND (IRI(str(RAND())) AS ?a) . \n" //
-					+ "  BIND (now() as ?time) \n" //
-					+ "} \n";
+					+ "?a a qa:AnnotationOfInstance . " //
+					+ "?a oa:hasTarget [ " //
+					+ "a    oa:SpecificResource; " //
+					+ "oa:hasSource    <" + myQanaryQuestion.getUri() + ">; \n" //
+					+ "oa:hasSelector  [ " //
+					+ "a oa:TextPositionSelector ; " //
+					+ "oa:start \"" + l.getBegin() + "\"^^xsd:nonNegativeInteger ; " //
+					+ "oa:end  \"" + l.getEnd() + "\"^^xsd:nonNegativeInteger ; " //
+					+ "qa:score \"" + l.getLinkProbability() + "\"^^xsd:float " //
+					+ "] " //
+					+ "] . " //
+					+ "?a oa:hasBody <" + l.getLink() + "> ; \n" //
+					+ "oa:annotatedBy <urn:qanary:" + this.applicationName + "> ; " //
+					+ "oa:annotatedAt ?time  " + "}} " //
+					+ "WHERE { " //
+					+ "BIND (IRI(str(RAND())) AS ?a) . " //
+					+ "BIND (now() as ?time) " //
+					+ "} ";
 			logger.debug("SPARQL query: {}", sparql);
 			myQanaryUtils.updateTripleStore(sparql, myQanaryQuestion.getEndpoint().toString());
 		}
@@ -123,6 +123,7 @@ public class TagmeNED extends QanaryComponent {
 	}
 
 	public List<NamedEntity> retrieveDataFromWebService(String myQuestion) throws IOException {
+		logger.info("\n         retrieving from WebService\n");
 		ArrayList<NamedEntity> links = new ArrayList<>();
 		logger.info("Question {}", myQuestion);
 
@@ -195,8 +196,8 @@ public class TagmeNED extends QanaryComponent {
 
 			while ((line = br.readLine()) != null && !cacheResult.hasCacheResult) {
 				String question = line.substring(0, line.indexOf("Answer:"));
-				logger.info("{}", line);
-				logger.info("{}", myQuestion);
+				logger.info("Read Line: {}", line);
+				//logger.info("{}", myQuestion);
 
 				if (question.trim().equals(myQuestion)) {
 					String answer = line.substring(line.indexOf("Answer:") + "Answer:".length());
@@ -207,7 +208,7 @@ public class TagmeNED extends QanaryComponent {
 						for (int i = 0; i < jsonArr.length(); i++) {
 							JSONObject explrObject = jsonArr.getJSONObject(i);
 
-							logger.info("Question: {}", explrObject);
+							logger.info("Line 211, Answer to Question: {}", explrObject);
 
 							NamedEntity l = new NamedEntity(explrObject.getString("link"), (int) explrObject.get("begin"), (int) explrObject.get("end") + 1);
 							cacheResult.links.add(l);
@@ -232,7 +233,7 @@ public class TagmeNED extends QanaryComponent {
 	private void writeToCache(String myQuestion, ArrayList<NamedEntity> links) throws IOException {
 		try {
 			BufferedWriter buffWriter = new BufferedWriter(
-					new FileWriter("qanary_component-NED-tagme/src/main/resources/questions.txt", true));
+					new FileWriter(cacheFile, true));
 			Gson gson = new Gson();
 
 			String json = gson.toJson(links);
