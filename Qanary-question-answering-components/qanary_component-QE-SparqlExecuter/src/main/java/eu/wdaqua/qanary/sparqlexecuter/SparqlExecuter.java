@@ -82,7 +82,7 @@ public class SparqlExecuter extends QanaryComponent {
         	endpoint = "https://query.wikidata.org/sparql";
             logger.info("use Wikidata endpoint");
         } else {
-          return myQanaryMessage;
+        	return myQanaryMessage;
         } 
         // @TODO: extend functionality to use qa:TargetDataset if present
         

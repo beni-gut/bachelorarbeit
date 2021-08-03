@@ -133,6 +133,7 @@ public class QueryBuilder extends QanaryComponent {
 								+ "?x <" + properties.get(0) + "> <" + entities.get(0) + "> . " //
 								+ "?x <" + properties.get(1) + "> ?uri . "//
 								+ "}";
+						logger.info("generated sparql query: {}", generatedQuery);
 
 						Query query = QueryFactory.create(generatedQuery);
 						QueryExecution exec = QueryExecutionFactory.sparqlService(dbpediaSparqEndpoint, query);
@@ -151,6 +152,9 @@ public class QueryBuilder extends QanaryComponent {
 							+ "?uri <" + properties.get(0) + "> <" + entities.get(0) + "> . " //
 							+ "?uri <" + properties.get(1) + "> <" + entities.get(1) + "> . }";
 				}
+			} else {
+				logger.info("breakpoint, length of properties: {}\n", properties.size());
+				return myQanaryMessage;
 			}
 
 		} else if (classes.size() == 1) {
