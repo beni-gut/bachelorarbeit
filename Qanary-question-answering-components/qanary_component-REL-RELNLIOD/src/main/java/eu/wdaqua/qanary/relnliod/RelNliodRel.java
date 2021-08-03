@@ -94,6 +94,7 @@ public class RelNliodRel extends QanaryComponent {
             FileCacheResult cacheResult = readFromCache(myQuestion);
             logger.info("cached Result: {}", cacheResult.links);
             hasCacheResult = cacheResult.hasCacheResult;
+            logger.info("is cacheResult empty: {}", cacheResult.links.isEmpty());
             dbLinkListSet.addAll(cacheResult.links);
             logger.info("dbLinkListSet after adding results: {}\n", dbLinkListSet);
         }
@@ -149,31 +150,36 @@ public class RelNliodRel extends QanaryComponent {
 
         logger.info("apply vocabulary alignment on outgraph {}", myQanaryMessage.getOutGraph());
 
-        // for all URLs found using the called API
-        for (String urls : dbLinkListSet) {
-            String sparql = "prefix qa: <http://www.wdaqua.eu/qa#> "
-                    + "prefix oa: <http://www.w3.org/ns/openannotation/core/> "
-                    + "prefix xsd: <http://www.w3.org/2001/XMLSchema#> "
-                    + "prefix dbp: <http://dbpedia.org/property/> "
-                    + "INSERT { "
-                    + "GRAPH <" + myQanaryQuestion.getOutGraph() + "> { "
-                    + "  ?a a qa:AnnotationOfRelation . "
-                    + "  ?a oa:hasTarget [ "
-                    + "           a    oa:SpecificResource; "
-                    + "           oa:hasSource    <" + myQanaryQuestion.getUri() + ">; "
-                    + "  ] ; "
-                    + "     oa:hasBody <" + urls + "> ;"
-                    + "     oa:annotatedBy <urn:qanary:" + this.applicationName + "> ; "
-                    + "	    oa:annotatedAt ?time  "
-                    + "}} "
-                    + "WHERE { "
-                    + "BIND (IRI(str(RAND())) AS ?a) ."
-                    + "BIND (now() as ?time) "
-                    + "}";
-            logger.info("Sparql query {}", sparql);
-            myQanaryUtils.updateTripleStore(sparql, myQanaryMessage.getEndpoint().toString());
-        }
+        if (!dbLinkListSet.isEmpty()) {
+            logger.info("is dbLinkListSet empty: {}", dbLinkListSet.isEmpty());
+            logger.info("size of dbLinkListSet: {}", dbLinkListSet.size());
 
+            // for all URLs found using the called API
+            for (String urls : dbLinkListSet) {
+                String sparql = "prefix qa: <http://www.wdaqua.eu/qa#> "
+                        + "PREFIX oa: <http://www.w3.org/ns/openannotation/core/> "
+                        + "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> "
+                        + "PREFIX dbp: <http://dbpedia.org/property/> "
+                        + "INSERT { "
+                        + "GRAPH <" + myQanaryQuestion.getOutGraph() + "> { "
+                        + "  ?a a qa:AnnotationOfRelation . "
+                        + "  ?a oa:hasTarget [ "
+                        + "           a    oa:SpecificResource; "
+                        + "           oa:hasSource    <" + myQanaryQuestion.getUri() + ">; "
+                        + "  ] ; "
+                        + "     oa:hasBody <" + urls + "> ;"
+                        + "     oa:annotatedBy <urn:qanary:" + this.applicationName + "> ; "
+                        + "	    oa:annotatedAt ?time  "
+                        + "}} "
+                        + "WHERE { "
+                        + "BIND (IRI(str(RAND())) AS ?a) ."
+                        + "BIND (now() as ?time) "
+                        + "}";
+                logger.info("Sparql query {}", sparql);
+                myQanaryUtils.updateTripleStore(sparql, myQanaryMessage.getEndpoint().toString());
+            }
+
+        }
         return myQanaryMessage;
 
     }
@@ -190,7 +196,7 @@ public class RelNliodRel extends QanaryComponent {
             while ((line = br.readLine()) != null && !cacheResult.hasCacheResult) {
                 String question = line.substring(0, line.indexOf("Answer:"));
                 logger.info("{}", line);
-                logger.info("{}", myQuestion);
+                //logger.info("{}", myQuestion);
 
                 if (question.trim().equals(myQuestion)) {
                     String Answer = line.substring(line.indexOf("Answer:") + "Answer:".length());
@@ -198,13 +204,14 @@ public class RelNliodRel extends QanaryComponent {
                     Answer = Answer.trim();
                     Answer = Answer.substring(1, Answer.length() - 1);
                     String[] values = Answer.split(", ");
-                    for (int i = 0; i < values.length; i++) {
-                        cacheResult.links.add(values[i]);
+                    for (String value : values) {
+                        if (value.length() > 0) {
+                            cacheResult.links.add(value);
+                        }
                     }
                     cacheResult.hasCacheResult = true;
                     break;
                 }
-
 
             }
             br.close();
