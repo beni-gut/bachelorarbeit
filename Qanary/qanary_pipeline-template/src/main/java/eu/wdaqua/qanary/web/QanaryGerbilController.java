@@ -246,8 +246,11 @@ public class QanaryGerbilController {
         JSONParser parser = new JSONParser();
         answersObj = (JSONObject) parser.parse(qanaryJsonAnswerString);
 
-        //add the Object to the Array
-        answersArray.add(answersObj);
+        //if answers are not empty, add the Object to the Array
+        if (!(answersObj.isEmpty())) {
+            logger.info("answers returned to GerbilController: \n{}", answersObj);
+            answersArray.add(answersObj);
+        }
 
 
         //wrapper json
