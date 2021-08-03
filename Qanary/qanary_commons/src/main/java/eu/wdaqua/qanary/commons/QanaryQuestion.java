@@ -9,6 +9,7 @@ import org.apache.jena.atlas.json.JSON;
 import org.apache.jena.atlas.json.JsonObject;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
+import org.apache.jena.query.ResultSetFactory;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -546,7 +547,14 @@ public class QanaryQuestion<T> {
 
 	public String getSparqlResult() throws SparqlQueryFailed {
 		//TODO: this can throw index out of bounds if no query was annotated
-		return this.getSparqlResults().get(0).query;
+		String SparqlResult = "";
+		try {
+			SparqlResult = this.getSparqlResults().get(0).query;
+		} catch (Exception e) {
+			logger.error("Index out of bounds");
+		}
+		return SparqlResult;
+//		return this.getSparqlResults().get(0).query;
 	}
 
 	public String getJsonResult() throws SparqlQueryFailed {
@@ -564,9 +572,9 @@ public class QanaryQuestion<T> {
 //				+ "  ?a oa:hasBody ?json " //
 //				TODO: this should be body of AnswerJson with rdf:value answer
 				+ "}";
-		ResultSet resultset = qanaryUtil.selectFromTripleStore(sparql, this.getEndpoint().toString());
+		ResultSet resultset = ResultSetFactory.copyResults(qanaryUtil.selectFromTripleStore(sparql, this.getEndpoint().toString()));
 
-		String sparqlAnnotation = null;
+		String sparqlAnnotation = "";
 		while (resultset.hasNext()) {
 			sparqlAnnotation = resultset.next().get("json").asLiteral().toString();
 		}
