@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import eu.wdaqua.qanary.commons.QanaryUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 //import org.json.parser.JSONParser;
@@ -242,13 +243,25 @@ public class QanaryGerbilController {
         //JsonResult is what's contained in the "answers" Array
         //so "head" and "results" as next-level Objects/Arrays
         String qanaryJsonAnswerString = (String) myQanaryQuestion.getJsonResult();
-        //Parse the retrieved String to a JSON Object
-        JSONParser parser = new JSONParser();
-        answersObj = (JSONObject) parser.parse(qanaryJsonAnswerString);
+        logger.info("Line 249, JSON Answer String, {}", qanaryJsonAnswerString);
 
-        //if answers are not empty, add the Object to the Array
-        if (!(answersObj.isEmpty())) {
-            logger.info("answers returned to GerbilController: \n{}", answersObj);
+        boolean lengthTest = true;
+
+        //prevents parser from failing with ParseException due to String returned being of length zero
+        if (qanaryJsonAnswerString.length() > 0) {
+            //Parse the retrieved String to a JSON Object
+            JSONParser parser = new JSONParser();
+            answersObj = (JSONObject) parser.parse(qanaryJsonAnswerString);
+
+            logger.info("answers returned to GerbilController: \n{} \n\n", answersObj);
+
+            //is true if String is returned but it only contains: {"bindings":[]} meaning it will be true if there is no answer
+            lengthTest = (answersObj.get("results").toString().length() <= 15);
+            logger.info("length Test: {}", lengthTest);
+        }
+
+        //if answers are not empty (length bigger than 15), add the Object to the Array
+        if (!lengthTest) {
             answersArray.add(answersObj);
         }
 
