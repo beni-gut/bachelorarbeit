@@ -1,5 +1,6 @@
 What is the capital of Switzerland? Answer: [http://dbpedia.org/ontology/capital]
 In welcher Zeitzone liegt Salt Lake City? Answer: [http://dbpedia.org/ontology/timeZone]
+
 What is the time zone of Salt Lake City? Answer: [http://dbpedia.org/ontology/timeZone]
 Which artists were born on the same date as Rachel Stevens? Answer: [http://dbpedia.org/ontology/birthPlace]
 How many seats does the home stadium of FC Porto have Answer: [http://dbpedia.org/ontology/seatingCapacity, http://dbpedia.org/ontology/homeStadium]
@@ -38,6 +39,10 @@ Which computer scientist won an oscar? Answer: [http://dbpedia.org/ontology/acad
 Who wrote Harry Potter? Answer: [http://dbpedia.org/ontology/author]
 Give me all writers that won the Nobel Prize in literature. Answer: [http://dbpedia.org/ontology/Writer, http://dbpedia.org/ontology/award]
 Give me English actors starring in Lovesick. Answer: [http://dbpedia.org/ontology/starring, http://dbpedia.org/ontology/birthPlace, http://dbpedia.org/ontology/country]
+
+
+#####here
+
 What is the nick name of Baghdad? Answer: [http://dbpedia.org/ontology/nickname]
 In which city was the president of Montenegro born? Answer: [http://dbpedia.org/ontology/president]
 Which U.S. state has the highest population density? Answer: [http://dbpedia.org/ontology/college]

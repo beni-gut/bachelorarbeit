@@ -1,4 +1,5 @@
 What is the capital of Switzerland? Answer: {v8={http://dbpedia.org/ontology/capital=0.6666666666666666}}
+
 What is the time zone of Salt Lake City? Answer: {v9={http://dbpedia.org/ontology/timeZone=0.7272727272727273}}
 Which artists were born on the same date as Rachel Stevens? Answer: {v15={http://dbpedia.org/property/bore=0.5}}
 How many seats does the home stadium of FC Porto have Answer: {v10={http://dbpedia.org/ontology/seatingCapacity=0.7272727272727273}, v11={http://dbpedia.org/ontology/homeStadium=0.6666666666666666}}
