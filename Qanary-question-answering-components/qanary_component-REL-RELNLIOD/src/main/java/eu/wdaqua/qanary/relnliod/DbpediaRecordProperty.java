@@ -65,7 +65,7 @@ public class DbpediaRecordProperty {
                 count++;
             }
             System.out.println(count);
-            this.print();
+            //this.print();
         }catch (Exception e) {
             System.out.println("Except: {}"+e);
             // TODO Auto-generated catch block
