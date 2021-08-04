@@ -1,18 +1,14 @@
 package eu.wdaqa.qanary.watson;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
-import eu.wdaqua.qanary.component.QanaryComponentConfiguration;
 import eu.wdaqua.qanary.component.QanaryComponent;
 
 @SpringBootApplication
-@EnableAutoConfiguration
 @ComponentScan("eu.wdaqua.qanary.component")
 /**
  * basic class for wrapping functionality to a Qanary component
@@ -32,7 +28,8 @@ public class Application {
 			@Value("${ned-watson.cache.enabled}") final Boolean cacheEnabled,
 			@Value("${ned-watson.cache.file}") final String cacheFile,
 			@Value("${ned-watson.service.url}") final String watsonServiceURL,
-			@Value("${ned-watson.service.key}") final String watsonServiceKey) {
+			@Value("${ned-watson.service.key}") final String watsonServiceKey
+	) {
 		return new WatsonNED(applicationName, cacheEnabled, cacheFile, watsonServiceURL, watsonServiceKey);
 	}
 	
