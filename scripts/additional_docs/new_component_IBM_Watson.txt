@@ -1,0 +1,57 @@
+[INFO] qanary-component-archetype 1.2.0 ................... SUCCESS [  0.903 s]
+[INFO] qa.commons 2.2.0 ................................... SUCCESS [ 14.160 s]
+[INFO] qa.pipeline 2.4.0 .................................. SUCCESS [  7.642 s]
+[INFO] qa.component 2.1.0 ................................. SUCCESS [  0.190 s]
+[INFO] qald.evaluator 0.1.0 ............................... SUCCESS [  1.128 s]
+[INFO] mvn.reactor 0.1.1-SNAPSHOT ......................... SUCCESS [  0.052 s]
+
+
+
+
+archetype version
+
+
+mvn archetype:generate \
+       -DarchetypeGroupId=eu.wdaqua.qanary.component \
+       -DarchetypeArtifactId=qa.qanarycomponent-archetype \
+       -DarchetypeVersion=1.2.0 \
+       -DgroupId=eu.wdaqua.qanary.component \
+       -DartifactId=qanary_component-NED-Watson \
+       -Dversion=0.1.0 \
+       -Dpackage=eu.wdaqa.qanary.watson \
+       -Dclassname=WatsonNED \
+       -DinteractiveMode=false
+
+
+
+created:
+.
+├── Dockerfile
+├── pom.xml
+└── src
+    ├── main
+    │   ├── java
+    │   │   └── eu
+    │   │       └── wdaqa
+    │   │           └── qanary
+    │   │               └── watson
+    │   │                   ├── Application.java
+    │   │                   └── WatsonNED.java
+    │   └── resources
+    │       ├── banner.txt
+    │       ├── config
+    │       │   └── application.properties
+    │       └── templates
+    │           └── description.html
+    └── test
+        └── java
+            └── eu
+                └── wdaqa
+                    └── qanary
+                        └── watson
+                            └── TestQanaryServiceController.java
+
+
+copied complete folder to Qanary-question-answering-components in current project
+
+
