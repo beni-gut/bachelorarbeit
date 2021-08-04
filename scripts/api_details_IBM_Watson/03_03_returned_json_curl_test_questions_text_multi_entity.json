@@ -1,0 +1,34 @@
+{
+  "usage": {
+    "text_units": 1,
+    "text_characters": 46,
+    "features": 2
+  },
+  "language": "en",
+  "entities": [
+    {
+      "type": "Location",
+      "text": "California, USA",
+      "relevance": 0.978348,
+      "count": 1,
+      "confidence": 0.83138
+    }
+  ],
+  "concepts": [
+    {
+      "text": "United States",
+      "relevance": 0.848986,
+      "dbpedia_resource": "http://dbpedia.org/resource/United_States"
+    },
+    {
+      "text": "California",
+      "relevance": 0.807806,
+      "dbpedia_resource": "http://dbpedia.org/resource/California"
+    },
+    {
+      "text": "Public transport",
+      "relevance": 0.673362,
+      "dbpedia_resource": "http://dbpedia.org/resource/Public_transport"
+    }
+  ]
+}

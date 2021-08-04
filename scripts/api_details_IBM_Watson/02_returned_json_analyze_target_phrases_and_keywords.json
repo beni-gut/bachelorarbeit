@@ -1,0 +1,52 @@
+{
+  "usage": {
+    "text_units": 1,
+    "text_characters": 37,
+    "features": 2
+  },
+  "sentiment": {
+    "targets": [
+      {
+        "text": "apples",
+        "score": 0.975705,
+        "label": "positive"
+      },
+      {
+        "text": "oranges",
+        "score": 0,
+        "label": "neutral"
+      }
+    ],
+    "document": {
+      "score": 0.759902,
+      "label": "positive"
+    }
+  },
+  "language": "en",
+  "keywords": [
+    {
+      "text": "apples",
+      "relevance": 0.74128,
+      "emotion": {
+        "sadness": 0.023553,
+        "joy": 0.872729,
+        "fear": 0.027397,
+        "disgust": 0.017636,
+        "anger": 0.013848
+      },
+      "count": 1
+    },
+    {
+      "text": "oranges",
+      "relevance": 0.74128,
+      "emotion": {
+        "sadness": 0.514253,
+        "joy": 0.078317,
+        "fear": 0.074223,
+        "disgust": 0.058103,
+        "anger": 0.126859
+      },
+      "count": 1
+    }
+  ]
+}

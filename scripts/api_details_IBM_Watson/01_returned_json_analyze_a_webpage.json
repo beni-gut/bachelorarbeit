@@ -1,0 +1,644 @@
+{
+  "usage": {
+    "text_units": 1,
+    "text_characters": 4483,
+    "features": 5
+  },
+  "sentiment": {
+    "document": {
+      "score": 0.695162,
+      "label": "positive"
+    }
+  },
+  "retrieved_url": "https://newsroom.ibm.com/Guerbet-and-IBM-Watson-Health-Announce-Strategic-Partnership-for-Artificial-Intelligence-in-Medical-Imaging-Liver",
+  "language": "en",
+  "keywords": [
+    {
+      "text": "liver cancer",
+      "relevance": 0.724552,
+      "count": 3
+    },
+    {
+      "text": "Watson Health",
+      "relevance": 0.711763,
+      "count": 3
+    },
+    {
+      "text": "IBM Watson Health plan",
+      "relevance": 0.615106,
+      "count": 1
+    },
+    {
+      "text": "interventional medical imaging",
+      "relevance": 0.611266,
+      "count": 1
+    },
+    {
+      "text": "artificial intelligence",
+      "relevance": 0.607823,
+      "count": 3
+    },
+    {
+      "text": "liver cancer diagnostics",
+      "relevance": 0.604459,
+      "count": 1
+    },
+    {
+      "text": "market software solutions",
+      "relevance": 0.579803,
+      "count": 1
+    },
+    {
+      "text": "Watson Imaging Care Advisor",
+      "relevance": 0.57793,
+      "count": 2
+    },
+    {
+      "text": "medical imaging",
+      "relevance": 0.553427,
+      "count": 2
+    },
+    {
+      "text": "important field",
+      "relevance": 0.550298,
+      "count": 1
+    },
+    {
+      "text": "IBM Watson Health",
+      "relevance": 0.543159,
+      "count": 2
+    },
+    {
+      "text": "IBM",
+      "relevance": 0.54311,
+      "count": 2
+    },
+    {
+      "text": "clinical decision support solutions",
+      "relevance": 0.54254,
+      "count": 1
+    },
+    {
+      "text": "Guerbet’s first project",
+      "relevance": 0.542524,
+      "count": 1
+    },
+    {
+      "text": "common site",
+      "relevance": 0.542448,
+      "count": 1
+    },
+    {
+      "text": "exclusive joint development agreement",
+      "relevance": 0.540723,
+      "count": 1
+    },
+    {
+      "text": "IBM Research team",
+      "relevance": 0.53711,
+      "count": 1
+    },
+    {
+      "text": "secondary liver cancer",
+      "relevance": 0.535849,
+      "count": 1
+    },
+    {
+      "text": "United States",
+      "relevance": 0.531469,
+      "count": 2
+    },
+    {
+      "text": "Guerbet’s CEO",
+      "relevance": 0.530671,
+      "count": 1
+    },
+    {
+      "text": "liver disease",
+      "relevance": 0.530347,
+      "count": 1
+    },
+    {
+      "text": "diagnostic support tool",
+      "relevance": 0.530325,
+      "count": 1
+    },
+    {
+      "text": "innovative solutions",
+      "relevance": 0.529917,
+      "count": 1
+    },
+    {
+      "text": "second leading cause of cancer death",
+      "relevance": 0.529828,
+      "count": 1
+    },
+    {
+      "text": "Vice President",
+      "relevance": 0.528412,
+      "count": 1
+    },
+    {
+      "text": "medical devices",
+      "relevance": 0.528087,
+      "count": 1
+    },
+    {
+      "text": "IBM Watson image analytics",
+      "relevance": 0.526907,
+      "count": 2
+    },
+    {
+      "text": "fastest growing cause of cancer deaths",
+      "relevance": 0.525105,
+      "count": 1
+    },
+    {
+      "text": "comprehensive range of pharmaceutical products",
+      "relevance": 0.525044,
+      "count": 1
+    },
+    {
+      "text": "growing health concern",
+      "relevance": 0.524678,
+      "count": 1
+    },
+    {
+      "text": "significant respective expertise of IBM",
+      "relevance": 0.524102,
+      "count": 1
+    },
+    {
+      "text": "primary liver cancer cases",
+      "relevance": 0.522716,
+      "count": 1
+    },
+    {
+      "text": "agreement aims",
+      "relevance": 0.522591,
+      "count": 1
+    },
+    {
+      "text": "contrast agents",
+      "relevance": 0.521065,
+      "count": 1
+    },
+    {
+      "text": "therapy prediction",
+      "relevance": 0.519859,
+      "count": 1
+    },
+    {
+      "text": "better characterization",
+      "relevance": 0.518989,
+      "count": 1
+    },
+    {
+      "text": "drug discovery",
+      "relevance": 0.518761,
+      "count": 1
+    },
+    {
+      "text": "informed characterizations of tissue",
+      "relevance": 0.517877,
+      "count": 1
+    },
+    {
+      "text": "care",
+      "relevance": 0.516453,
+      "count": 2
+    },
+    {
+      "text": "challenge of liver cancer",
+      "relevance": 0.513838,
+      "count": 1
+    },
+    {
+      "text": "business unit of IBM",
+      "relevance": 0.513155,
+      "count": 1
+    },
+    {
+      "text": "Liver",
+      "relevance": 0.512745,
+      "count": 4
+    },
+    {
+      "text": "use",
+      "relevance": 0.511526,
+      "count": 1
+    },
+    {
+      "text": "France",
+      "relevance": 0.511378,
+      "count": 2
+    },
+    {
+      "text": "collaboration",
+      "relevance": 0.510413,
+      "count": 2
+    },
+    {
+      "text": "solutions",
+      "relevance": 0.510403,
+      "count": 1
+    },
+    {
+      "text": "part of a family of decision support tools",
+      "relevance": 0.508491,
+      "count": 1
+    },
+    {
+      "text": "workflows of healthcare professionals",
+      "relevance": 0.507723,
+      "count": 1
+    },
+    {
+      "text": "revenue",
+      "relevance": 0.507672,
+      "count": 2
+    },
+    {
+      "text": "offerings",
+      "relevance": 0.507515,
+      "count": 1
+    }
+  ],
+  "entities": [
+    {
+      "type": "HealthCondition",
+      "text": "liver cancer",
+      "relevance": 0.952671,
+      "count": 5,
+      "confidence": 0.974629
+    },
+    {
+      "type": "Company",
+      "text": "Guerbet",
+      "relevance": 0.863539,
+      "disambiguation": {
+        "subtype": [
+          "Organization"
+        ],
+        "name": "Guerbet",
+        "dbpedia_resource": "http://dbpedia.org/resource/Guerbet"
+      },
+      "count": 6,
+      "confidence": 0.997718
+    },
+    {
+      "type": "Company",
+      "text": "IBM",
+      "relevance": 0.803983,
+      "disambiguation": {
+        "subtype": [
+          "SoftwareLicense",
+          "Organization",
+          "OperatingSystemDeveloper",
+          "ProcessorManufacturer",
+          "SoftwareDeveloper",
+          "CompanyFounder",
+          "ProgrammingLanguageDesigner",
+          "ProgrammingLanguageDeveloper"
+        ],
+        "name": "IBM",
+        "dbpedia_resource": "http://dbpedia.org/resource/IBM"
+      },
+      "count": 8,
+      "confidence": 1
+    },
+    {
+      "type": "Location",
+      "text": "Villepinte",
+      "relevance": 0.531755,
+      "count": 1,
+      "confidence": 0.487684
+    },
+    {
+      "type": "Company",
+      "text": "IBM Watson Health",
+      "relevance": 0.491715,
+      "count": 2,
+      "confidence": 0.598237
+    },
+    {
+      "type": "Person",
+      "text": "Guerbet",
+      "relevance": 0.482441,
+      "count": 1,
+      "confidence": 0.545088
+    },
+    {
+      "type": "Company",
+      "text": "Watson Imaging Care",
+      "relevance": 0.469496,
+      "count": 1,
+      "confidence": 0.172234
+    },
+    {
+      "type": "HealthCondition",
+      "text": "Liver cancer",
+      "relevance": 0.429828,
+      "count": 2,
+      "confidence": 0.93769
+    },
+    {
+      "type": "Quantity",
+      "text": "83 percent",
+      "relevance": 0.412076,
+      "count": 1,
+      "confidence": 0.8
+    },
+    {
+      "type": "HealthCondition",
+      "text": "digestive cancers",
+      "relevance": 0.394792,
+      "count": 1,
+      "confidence": 0.533267
+    },
+    {
+      "type": "Quantity",
+      "text": "50%",
+      "relevance": 0.391636,
+      "count": 1,
+      "confidence": 0.8
+    },
+    {
+      "type": "Person",
+      "text": "Yves L’Epine",
+      "relevance": 0.326764,
+      "count": 1,
+      "confidence": 0.58429
+    },
+    {
+      "type": "HealthCondition",
+      "text": "cancer",
+      "relevance": 0.270235,
+      "count": 3,
+      "confidence": 0.999007
+    },
+    {
+      "type": "Person",
+      "text": "Anne Le Grand",
+      "relevance": 0.247177,
+      "count": 1,
+      "confidence": 0.935711
+    },
+    {
+      "type": "Organization",
+      "text": "Watson Health",
+      "relevance": 0.241648,
+      "count": 1,
+      "confidence": 0.53406
+    },
+    {
+      "type": "Company",
+      "text": "NYSE",
+      "relevance": 0.239809,
+      "disambiguation": {
+        "subtype": [
+          "Organization",
+          "Location",
+          "Facility",
+          "HistoricPlace",
+          "Building"
+        ],
+        "name": "New_York_Stock_Exchange",
+        "dbpedia_resource": "http://dbpedia.org/resource/New_York_Stock_Exchange"
+      },
+      "count": 1,
+      "confidence": 0.504342
+    },
+    {
+      "type": "Location",
+      "text": "Cambridge",
+      "relevance": 0.2315,
+      "count": 1,
+      "confidence": 0.904086
+    },
+    {
+      "type": "Company",
+      "text": "IBM Watson image analytics",
+      "relevance": 0.22601,
+      "count": 1,
+      "confidence": 0.274031
+    },
+    {
+      "type": "Location",
+      "text": "France",
+      "relevance": 0.22565,
+      "count": 2,
+      "confidence": 0.999784
+    },
+    {
+      "type": "Location",
+      "text": "USA",
+      "relevance": 0.185541,
+      "disambiguation": {
+        "subtype": [
+          "HumanLanguage",
+          "PoliticalDistrict",
+          "Region",
+          "AdministrativeDivision",
+          "Country",
+          "GovernmentalJurisdiction"
+        ],
+        "name": "Italy",
+        "dbpedia_resource": "http://dbpedia.org/resource/Italy"
+      },
+      "count": 1,
+      "confidence": 0.401444
+    },
+    {
+      "type": "HealthCondition",
+      "text": "liver disease",
+      "relevance": 0.183914,
+      "disambiguation": {
+        "subtype": [
+          "DiseaseOrMedicalCondition",
+          "DiseaseCause",
+          "RiskFactor",
+          "Disease"
+        ],
+        "name": "Liver_disease",
+        "dbpedia_resource": "http://dbpedia.org/resource/Liver_disease"
+      },
+      "count": 1,
+      "confidence": 0.415132
+    },
+    {
+      "type": "Person",
+      "text": "François Nicolas",
+      "relevance": 0.160274,
+      "count": 1,
+      "confidence": 0.996696
+    },
+    {
+      "type": "Location",
+      "text": "United States",
+      "relevance": 0.153702,
+      "disambiguation": {
+        "subtype": [
+          "Region",
+          "AdministrativeDivision",
+          "Country",
+          "GovernmentalJurisdiction",
+          "FilmEditor"
+        ],
+        "name": "United_States",
+        "dbpedia_resource": "http://dbpedia.org/resource/United_States"
+      },
+      "count": 2,
+      "confidence": 0.99942
+    },
+    {
+      "type": "Quantity",
+      "text": "8%",
+      "relevance": 0.110339,
+      "count": 1,
+      "confidence": 0.8
+    },
+    {
+      "type": "Person",
+      "text": "Watson",
+      "relevance": 0.104628,
+      "count": 1,
+      "confidence": 0.781924
+    },
+    {
+      "type": "Quantity",
+      "text": "€807 million",
+      "relevance": 0.071263,
+      "count": 1,
+      "confidence": 0.8
+    },
+    {
+      "type": "Company",
+      "text": "Watson Health",
+      "relevance": 0.057002,
+      "count": 1,
+      "confidence": 0.307501
+    },
+    {
+      "type": "Company",
+      "text": "Euronext Paris",
+      "relevance": 0.054717,
+      "count": 1,
+      "confidence": 0.50018
+    },
+    {
+      "type": "Company",
+      "text": "Watson Health technologies",
+      "relevance": 0.034266,
+      "count": 1,
+      "confidence": 0.156803
+    },
+    {
+      "type": "Location",
+      "text": "Israel",
+      "relevance": 0.03113,
+      "disambiguation": {
+        "subtype": [
+          "Country",
+          "GovernmentalJurisdiction",
+          "FilmArtDirector"
+        ],
+        "name": "Israel",
+        "dbpedia_resource": "http://dbpedia.org/resource/Israel"
+      },
+      "count": 1,
+      "confidence": 0.9924
+    },
+    {
+      "type": "HealthCondition",
+      "text": "diabetes",
+      "relevance": 0.006516,
+      "disambiguation": {
+        "subtype": [
+          "Disease"
+        ],
+        "name": "Diabetes_mellitus",
+        "dbpedia_resource": "http://dbpedia.org/resource/Diabetes_mellitus"
+      },
+      "count": 1,
+      "confidence": 0.989558
+    },
+    {
+      "type": "Person",
+      "text": "Jessica Emond",
+      "relevance": 0.004425,
+      "count": 1,
+      "confidence": 0.984772
+    },
+    {
+      "type": "Person",
+      "text": "watson",
+      "relevance": 0.004224,
+      "count": 1,
+      "confidence": 0.566884
+    },
+    {
+      "type": "EmailAddress",
+      "text": "Jessica.emond@ibm.com",
+      "relevance": 0.001578,
+      "count": 1,
+      "confidence": 0.8
+    }
+  ],
+  "concepts": [
+    {
+      "text": "Cancer",
+      "relevance": 0.984368,
+      "dbpedia_resource": "http://dbpedia.org/resource/Cancer"
+    },
+    {
+      "text": "Health care",
+      "relevance": 0.885532,
+      "dbpedia_resource": "http://dbpedia.org/resource/Health_care"
+    },
+    {
+      "text": "Magnetic resonance imaging",
+      "relevance": 0.66221,
+      "dbpedia_resource": "http://dbpedia.org/resource/Magnetic_resonance_imaging"
+    },
+    {
+      "text": "Medicine",
+      "relevance": 0.657648,
+      "dbpedia_resource": "http://dbpedia.org/resource/Medicine"
+    },
+    {
+      "text": "Artificial intelligence",
+      "relevance": 0.595164,
+      "dbpedia_resource": "http://dbpedia.org/resource/Artificial_intelligence"
+    },
+    {
+      "text": "Oncology",
+      "relevance": 0.571111,
+      "dbpedia_resource": "http://dbpedia.org/resource/Oncology"
+    },
+    {
+      "text": "Liver",
+      "relevance": 0.563501,
+      "dbpedia_resource": "http://dbpedia.org/resource/Liver"
+    },
+    {
+      "text": "Hepatocellular carcinoma",
+      "relevance": 0.563287,
+      "dbpedia_resource": "http://dbpedia.org/resource/Hepatocellular_carcinoma"
+    }
+  ],
+  "categories": [
+    {
+      "score": 0.959894,
+      "label": "/health and fitness"
+    },
+    {
+      "score": 0.948686,
+      "label": "/health and fitness/therapy"
+    },
+    {
+      "score": 0.894874,
+      "label": "/health and fitness/disease/cancer/brain tumor"
+    }
+  ]
+}

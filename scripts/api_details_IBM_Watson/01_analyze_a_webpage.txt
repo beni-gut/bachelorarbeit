@@ -1,0 +1,18 @@
+curl -X POST -u "apikey:Mj1bodG04PJuBi6knpzdfsSB8l9W4q2xemx8voSwv8CK" \
+--header "Content-Type: application/json" \
+--data '{
+  "url": "http://newsroom.ibm.com/Guerbet-and-IBM-Watson-Health-Announce-Strategic-Partnership-for-Artificial-Intelligence-in-Medical-Imaging-Liver",
+  "features": {
+    "sentiment": {},
+    "categories": {},
+    "concepts": {},
+    "entities": {},
+    "keywords": {}
+  }
+}' \
+"https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/50a9ee80-9f3c-4628-82fc-de208013c707/v1/analyze?version=2019-07-12"
+
+
+
+Returned content in file:
+01_returned_json_analyze_a_webpage.json

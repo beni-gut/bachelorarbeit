@@ -1,0 +1,32 @@
+{
+  "usage": {
+    "text_units": 1,
+    "text_characters": 35,
+    "features": 1
+  },
+  "language": "en",
+  "entities": [
+    {
+      "type": "Location",
+      "text": "Switzerland",
+      "relevance": 0.978348,
+      "mentions": [
+        {
+          "text": "Switzerland",
+          "location": [
+            23,
+            34
+          ],
+          "confidence": 0.982909
+        }
+      ],
+      "disambiguation": {
+        "name": "Switzerland",
+        "dbpedia_resource": "http://dbpedia.org/resource/Switzerland"
+      },
+      "count": 1,
+      "confidence": 0.982909
+    }
+  ],
+  "analyzed_text": "What is the capital of Switzerland?"
+}
