@@ -19,17 +19,30 @@ import eu.wdaqua.qanary.exceptions.SparqlQueryFailed;
 
 @Component
 /**
- * This component connected automatically to the Qanary pipeline.
- * The Qanary pipeline endpoint defined in application.properties (spring.boot.admin.url)
- * @see <a href="https://github.com/WDAqua/Qanary/wiki/How-do-I-integrate-a-new-component-in-Qanary%3F" target="_top">Github wiki howto</a>
+ * This component retrieves named entities for a given question from the
+ * IBM Watson Natural Language Understanding Web Service
  */
 public class WatsonNED extends QanaryComponent {
 	private static final Logger logger = LoggerFactory.getLogger(WatsonNED.class);
 
 	private final String applicationName;
+	private final Boolean cacheEnabled;
+	private final String cacheFile;
+	private final String watsonServiceURL;
+	private final String watsonServiceKey;
 
-	public WatsonNED(@Value("${spring.application.name}")final String applicationName) {
+	public WatsonNED(
+			@Value("${spring.application.name}")final String applicationName,
+			@Value("${ned-watson.cache.enabled}") final Boolean cacheEnabled,
+			@Value("${ned-watson.cache.file}") final String cacheFile,
+			@Value("${ned-watson.service.url}") final String watsonServiceURL,
+			@Value("${ned-watson.service.key}") final String watsonServiceKey
+	) {
 		this.applicationName = applicationName;
+		this.cacheEnabled = cacheEnabled;
+		this.cacheFile = cacheFile;
+		this.watsonServiceURL = watsonServiceURL;
+		this.watsonServiceKey = watsonServiceKey;
 	}
 	/**
 	 * implement this method encapsulating the functionality of your Qanary

@@ -27,13 +27,14 @@ public class Application {
 	* @return
 	*/
 	@Bean
-	public QanaryComponent qanaryComponent(
-			@Value("${spring.application.name}") final String applicationName) {
-		return new WatsonNED(applicationName);
+	public WatsonNED qanaryComponent(
+			@Value("${spring.application.name}") final String applicationName,
+			@Value("${ned-watson.cache.enabled}") final Boolean cacheEnabled,
+			@Value("${ned-watson.cache.file}") final String cacheFile,
+			@Value("${ned-watson.service.url}") final String watsonServiceURL,
+			@Value("${ned-watson.service.key}") final String watsonServiceKey) {
+		return new WatsonNED(applicationName, cacheEnabled, cacheFile, watsonServiceURL, watsonServiceKey);
 	}
-
-	@Autowired
-	public QanaryComponentConfiguration qanaryComponentConfiguration;
 	
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
