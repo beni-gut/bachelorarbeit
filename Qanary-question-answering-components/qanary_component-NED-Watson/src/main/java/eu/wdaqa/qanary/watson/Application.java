@@ -25,7 +25,7 @@ public class Application {
 	@Bean
 	public WatsonNED qanaryComponent(
 			@Value("${spring.application.name}") final String applicationName,
-			@Value("${ned-watson.cache.enabled}") final Boolean cacheEnabled,
+			@Value("${ned-watson.cache.enabled}") final boolean cacheEnabled,
 			@Value("${ned-watson.cache.file}") final String cacheFile,
 			@Value("${ned-watson.service.url}") final String watsonServiceURL,
 			@Value("${ned-watson.service.key}") final String watsonServiceKey
