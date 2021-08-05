@@ -28,6 +28,7 @@ import org.json.JSONObject;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Base64;
 
 import com.google.gson.Gson;
 
@@ -56,14 +57,14 @@ public class WatsonNED extends QanaryComponent {
 	private static final Logger logger = LoggerFactory.getLogger(WatsonNED.class);
 
 	private final String applicationName;
-	private final Boolean cacheEnabled;
+	private final boolean cacheEnabled;
 	private final String cacheFile;
 	private final String watsonServiceURL;
 	private final String watsonServiceKey;
 
 	public WatsonNED(
 			@Value("${spring.application.name}")final String applicationName,
-			@Value("${ned-watson.cache.enabled}") final Boolean cacheEnabled,
+			@Value("${ned-watson.cache.enabled}") final boolean cacheEnabled,
 			@Value("${ned-watson.cache.file}") final String cacheFile,
 			@Value("${ned-watson.service.url}") final String watsonServiceURL,
 			@Value("${ned-watson.service.key}") final String watsonServiceKey
@@ -151,45 +152,70 @@ public class WatsonNED extends QanaryComponent {
 		logger.info("Retrieving data from Webservice for Question: {}", myQuestionText);
 		ArrayList<NamedEntity> namedEntityArrayList = new ArrayList<>();
 
-		String encodedQuestion = "";
-		encodedQuestion = URLEncoder.encode(myQuestionText, "UTF-8");
+		// the request body, features defines what the API returns
+		// entities returns the entities with a dbpedia-link if it can find one, 'mentions' so the location of the entity is returned
+		// concepts returns "linked" words and dbpedia-entities for them
+		// standard limit is 50 for entities and 8 for concepts
+		String requestBody = "{\"language\": \"en\","
+				+ "\"text\": \"" + myQuestionText
+				+ "\",\"features\": {"
+				+ "\"entities\": {\"limit\": 5, \"mentions\": true},"
+				+ "\"concepts\": {\"limit\": 5}}}";
 
-		HttpClient httpClient = HttpClients.createDefault();
-
-
-
-		HttpPost httpRequest = new HttpPost(watsonServiceURL + "/v1/analyze?version=2021-08-01");
-		httpRequest.setHeader("Authorization", watsonServiceKey);
-		httpRequest.setHeader("Content-Type", "application/json");
-
-
-		logger.info("headers: {}", httpRequest.getAllHeaders());
-
-		String requestBody = "{\n" +
-				"     \"language\": \"en\",\n" +
-				"     \"text\": \""+ encodedQuestion +"\",\n" +
-				"     \"features\": {\n" +
-				"       \"entities\": {\n" +
-				"         \"limit\": 5\n" +
-				"       },\n" +
-				"       \"concepts\": {\n" +
-				"         \"limit\": 5\n" +
-				"       }\n" +
-				"     }\n" +
-				"}";
+		// transforms the request body for the Http request
 		StringEntity requestEntity = new StringEntity(requestBody);
 
+		// encodes the API key for Authorization
+		String encodedKey = Base64.getEncoder().encodeToString(("apikey:" + watsonServiceKey).getBytes());
+
+		// instances the httpRequest and sets the headers and body
+		HttpClient httpClient = HttpClients.createDefault();
+		HttpPost httpRequest = new HttpPost(watsonServiceURL + "/v1/analyze?version=2021-08-01");
+		httpRequest.setHeader(HttpHeaders.AUTHORIZATION, "Basic " + encodedKey);
+		httpRequest.setHeader("Content-Type", "application/json");
 		httpRequest.setEntity(requestEntity);
+
+		// executes the http request
 		HttpResponse response = httpClient.execute(httpRequest);
 
 		try {
-			HttpEntity entity = response.getEntity();
-			if (entity != null) {
-				InputStream inputStream = entity.getContent();
+			HttpEntity httpEntity = response.getEntity();
+			if (httpEntity != null) {
+				InputStream inputStream = httpEntity.getContent();
 
 				String text = IOUtils.toString(inputStream, StandardCharsets.UTF_8.name());
 				JSONObject responseJsonObject = new JSONObject(text);
-				logger.info("responseJSON: {}", responseJsonObject);
+				if (responseJsonObject.has("entities")) {
+					JSONArray responseEntitiesArray = (JSONArray) responseJsonObject.get("entities");
+					if (responseEntitiesArray.length() != 0) {
+						// get each returned entity with its details
+						for (int i = 0; i < responseEntitiesArray.length(); i++) {
+							JSONObject responseEntity = responseEntitiesArray.getJSONObject(i);
+							logger.info("responseEntity: {}", responseEntity);
+
+							// check if entity has a disambiguation Array that contains the dbpedia URI
+							if (responseEntity.has("disambiguation")) {
+								// get location of entity in question
+								JSONArray locationsArray = (JSONArray) responseEntity.getJSONArray("mentions").getJSONObject(0).get("location");
+								int start = locationsArray.getInt(0);
+								int end = locationsArray.getInt(1) - 1;
+
+								// get the confidence
+								double confidence = (double) responseEntity.get("confidence");
+
+								// the disambiguated dbpedia uri
+								String uri = (String) responseEntity.getJSONObject("disambiguation").get("dbpedia_resource");
+								logger.info("dbpedia_resource: {}, start: {}, end: {}, confidence: {}", uri, start, end, confidence);
+
+								NamedEntity foundNamedEntity = new NamedEntity(uri, start, end, confidence);
+								namedEntityArrayList.add(foundNamedEntity);
+							}
+						}
+					}
+				}
+			}
+			if (cacheEnabled) {
+				this.writeToCache(myQuestionText, namedEntityArrayList);
 			}
 		} catch (ClientProtocolException e) {
 			logger.error("ClientProtocolException: {}", e);
@@ -217,7 +243,7 @@ public class WatsonNED extends QanaryComponent {
 					if (jsonArr.length() != 0) {
 						for (int i = 0; i < jsonArr.length(); i ++) {
 							JSONObject explrObject = jsonArr.getJSONObject(i);
-							NamedEntity namedEntity = new NamedEntity((String) explrObject.get("uri"), (int[]) explrObject.get("location"));
+							NamedEntity namedEntity = new NamedEntity((String) explrObject.get("uri"), (int) explrObject.get("start"), (int) explrObject.get("end"), (double) explrObject.get("confidence"));
 							cacheResult.dataWatson.add(namedEntity);
 						}
 					}
@@ -235,7 +261,7 @@ public class WatsonNED extends QanaryComponent {
 
 	private void writeToCache(String myQuestionText, ArrayList<NamedEntity> uriAndLocation) throws IOException {
 		try {
-			//FileWriter will append at the end of the document
+			// true in FileWriter constructor, so that everything is appended at the end of the document
 			BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(cacheFile, true));
 			Gson gson = new Gson();
 
