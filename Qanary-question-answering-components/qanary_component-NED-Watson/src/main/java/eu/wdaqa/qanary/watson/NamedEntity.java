@@ -1,39 +1,38 @@
 package eu.wdaqa.qanary.watson;
 
 public class NamedEntity {
-    private double confidence;
-    private int[] location;
     private String uri;
+    private int start;
+    private int end;
+    private double confidence;
 
-    public NamedEntity(String uri, int[] location, double confidence) {
-        this.location = location;
+    public NamedEntity(String uri, int start, int end, double confidence) {
+        this.start = start;
+        this.end = end;
         this.uri = uri;
         this.confidence = confidence;
     }
 
-    public NamedEntity(String uri, int[] location) {
-        this.location = location;
+    public NamedEntity(String uri, int start, int end) {
+        this.start = start;
+        this.end = end;
         this.uri = uri;
-    }
-
-    public int[] getLocation() {
-        return location;
     }
 
     public String getUri() {
         return uri;
     }
 
-    public Double getConfidence() {
+    public double getConfidence() {
         return confidence;
     }
 
     public int getStart() {
-        return location[0];
+        return start;
     }
 
     public int getEnd() {
-        return location[1];
+        return end;
     }
 
     @Override
