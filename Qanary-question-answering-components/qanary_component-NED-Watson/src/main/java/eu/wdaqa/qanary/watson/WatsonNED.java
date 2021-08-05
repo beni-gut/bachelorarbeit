@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
-//import org.apache.catalina.util.URLEncoder;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
@@ -22,20 +22,12 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.Base64;
-
 import com.google.gson.Gson;
 
-//import com.github.andrewoma.dexx.collection.ArrayList;
-import org.apache.jena.query.QuerySolution;
-import org.apache.jena.query.ResultSet;
-//import org.apache.tomcat.jni.File;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -78,7 +70,6 @@ public class WatsonNED extends QanaryComponent {
 
 	/**
 	 * method encapsulating the functionality of the Qanary component
-	 * 
 	 * @throws SparqlQueryFailed
 	 */
 	@Override
@@ -103,22 +94,13 @@ public class WatsonNED extends QanaryComponent {
 			namedEntityList.addAll(cacheResult.dataWatson);
 		}
 
-		// if no cacheResult was found, or if cache is turned off, get data from Watson service
+		// if no cacheResult was found, or if cache is turned off, get data from Watson service and add it to the List
 		if (!hasCacheResult) {
 			namedEntityList = this.retrieveDataFromWebService(myQuestionText);
 		}
 
 		for (NamedEntity namedEntity : namedEntityList) {
-			// STEP 3: store computed knowledge about the given question into the Qanary triplestore
-			// (the global process memory)
-
-			/*
-			logger.info("store data in graph {} of Qanary triplestore endpoint {}", //
-					myQanaryMessage.getValues().get(myQanaryMessage.getOutGraph()), //
-					myQanaryMessage.getValues().get(myQanaryMessage.getEndpoint()));
-			*/
-			// push data to the Qanary triplestore
-			// TODO: define your SPARQL UPDATE query here
+			// the sparql query to push all entities into the triplestore
 			String sparqlUpdateQuery = "PREFIX qa: <http://www.wdaqua.eu/qa#> " //
 					+ "PREFIX oa: <http://www.w3.org/ns/openannotation/core/>  " //
 					+ "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" //
@@ -152,15 +134,17 @@ public class WatsonNED extends QanaryComponent {
 		logger.info("Retrieving data from Webservice for Question: {}", myQuestionText);
 		ArrayList<NamedEntity> namedEntityArrayList = new ArrayList<>();
 
-		// the request body, features defines what the API returns
-		// entities returns the entities with a dbpedia-link if it can find one, 'mentions' so the location of the entity is returned
-		// concepts returns "linked" words and dbpedia-entities for them
-		// standard limit is 50 for entities and 8 for concepts
+		/**
+		 * the request body as a String
+		 * features defines what the API returns
+		 * entities returns the entities with a dbpedia-link if it can find one
+		 * 'mentions' so the location of the entity is returned
+		 * standard limit is 50
+		 */
 		String requestBody = "{\"language\": \"en\","
 				+ "\"text\": \"" + myQuestionText
 				+ "\",\"features\": {"
-				+ "\"entities\": {\"limit\": 5, \"mentions\": true},"
-				+ "\"concepts\": {\"limit\": 5}}}";
+				+ "\"entities\": {\"limit\": 5, \"mentions\": true}}}";
 
 		// transforms the request body for the Http request
 		StringEntity requestEntity = new StringEntity(requestBody);
@@ -185,28 +169,34 @@ public class WatsonNED extends QanaryComponent {
 
 				String text = IOUtils.toString(inputStream, StandardCharsets.UTF_8.name());
 				JSONObject responseJsonObject = new JSONObject(text);
+				logger.info("received Json Response: \n{}\n", responseJsonObject);
+				// test if response returned the entities Array
 				if (responseJsonObject.has("entities")) {
+					// get the entity Array
 					JSONArray responseEntitiesArray = (JSONArray) responseJsonObject.get("entities");
+					// test if Array holds entities
 					if (responseEntitiesArray.length() != 0) {
-						// get each returned entity with its details
+						// process each returned entity in the Array
 						for (int i = 0; i < responseEntitiesArray.length(); i++) {
+							// get the entity and log it
 							JSONObject responseEntity = responseEntitiesArray.getJSONObject(i);
 							logger.info("responseEntity: {}", responseEntity);
 
 							// check if entity has a disambiguation Array that contains the dbpedia URI
 							if (responseEntity.has("disambiguation")) {
-								// get location of entity in question
+								// get location in the question of the entity
 								JSONArray locationsArray = (JSONArray) responseEntity.getJSONArray("mentions").getJSONObject(0).get("location");
 								int start = locationsArray.getInt(0);
 								int end = locationsArray.getInt(1) - 1;
 
-								// get the confidence
+								// get the confidence assigned by Watson
 								double confidence = (double) responseEntity.get("confidence");
 
-								// the disambiguated dbpedia uri
+								// get the disambiguated dbpedia uri
 								String uri = (String) responseEntity.getJSONObject("disambiguation").get("dbpedia_resource");
 								logger.info("dbpedia_resource: {}, start: {}, end: {}, confidence: {}", uri, start, end, confidence);
 
+								// create new NamedEntity with all Data and add it to the ArrayList
 								NamedEntity foundNamedEntity = new NamedEntity(uri, start, end, confidence);
 								namedEntityArrayList.add(foundNamedEntity);
 							}
@@ -218,12 +208,19 @@ public class WatsonNED extends QanaryComponent {
 				this.writeToCache(myQuestionText, namedEntityArrayList);
 			}
 		} catch (ClientProtocolException e) {
+			// handle this
 			logger.error("ClientProtocolException: {}", e);
 		}
-
 		return namedEntityArrayList;
 	}
 
+	/**
+	 * Searches a text file and tries to find the asked question
+	 * if the question is in the text file, return the answer and add it to the Array in CacheResult
+	 * @param myQuestionText The String of the asked question
+	 * @return the CacheResult with all found answers
+	 * @throws IOException
+	 */
 	private CacheResult readFromCache(String myQuestionText) throws IOException {
 		final CacheResult cacheResult = new CacheResult();
 		try {
@@ -233,7 +230,7 @@ public class WatsonNED extends QanaryComponent {
 
 			while ((line = br.readLine()) != null) {
 				String question = line.substring(0, line.indexOf("Answer:"));
-				logger.info("readLine: {}", line);
+				//logger.info("readLine: {}", line);
 
 				if (question.trim().equals(myQuestionText)) {
 					String answer = line.substring(line.indexOf("Answer:") + "Answer:".length());
@@ -259,6 +256,12 @@ public class WatsonNED extends QanaryComponent {
 		return cacheResult;
 	}
 
+	/**
+	 * Used to write questions and their answers into a text file as a simple cache
+	 * @param myQuestionText The String of the asked question
+	 * @param uriAndLocation The Array of all named entities
+	 * @throws IOException
+	 */
 	private void writeToCache(String myQuestionText, ArrayList<NamedEntity> uriAndLocation) throws IOException {
 		try {
 			// true in FileWriter constructor, so that everything is appended at the end of the document
@@ -278,6 +281,9 @@ public class WatsonNED extends QanaryComponent {
 		}
 	}
 
+	/**
+	 * Class used to return CacheResult
+	 */
 	class CacheResult {
 		public ArrayList<NamedEntity> dataWatson = new ArrayList<>();
 		public boolean hasCacheResult;
