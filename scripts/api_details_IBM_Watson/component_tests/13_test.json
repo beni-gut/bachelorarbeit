@@ -1,0 +1,43 @@
+{
+  "concepts": [
+    {
+      "text": "The Capital",
+      "dbpedia_resource": "http://dbpedia.org/resource/The_Capital",
+      "relevance": 0.91136
+    },
+    {
+      "text": "Switzerland",
+      "dbpedia_resource": "http://dbpedia.org/resource/Switzerland",
+      "relevance": 0.8704
+    }
+  ],
+  "entities": [
+    {
+      "mentions": [
+        {
+          "confidence": 0.982909,
+          "location": [
+            23,
+            34
+          ],
+          "text": "Switzerland"
+        }
+      ],
+      "confidence": 0.982909,
+      "disambiguation": {
+        "name": "Switzerland",
+        "dbpedia_resource": "http://dbpedia.org/resource/Switzerland"
+      },
+      "count": 1,
+      "text": "Switzerland",
+      "type": "Location",
+      "relevance": 0.978348
+    }
+  ],
+  "usage": {
+    "features": 2,
+    "text_units": 1,
+    "text_characters": 35
+  },
+  "language": "en"
+}

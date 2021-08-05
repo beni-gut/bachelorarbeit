@@ -1,0 +1,53 @@
+[{
+  "usage": {
+    "features": 2,
+    "text_units": 1,
+    "text_characters": 37
+  },
+  "language": "en",
+  "entities": [
+    {
+      "type": "Location",
+      "text": "Switzerland",
+      "relevance": 0.963296,
+      "count": 1,
+      "confidence": 0.891748
+    }
+  ],
+  "concepts": []
+},
+
+
+{
+  "usage": {
+    "text_units": 1,
+    "text_characters": 35,
+    "features": 2
+  },
+  "language": "en",
+  "entities": [
+    {
+      "type": "Location",
+      "text": "Switzerland",
+      "relevance": 0.978348,
+      "disambiguation": {
+        "name": "Switzerland",
+        "dbpedia_resource": "http://dbpedia.org/resource/Switzerland"
+      },
+      "count": 1,
+      "confidence": 0.982909
+    }
+  ],
+  "concepts": [
+    {
+      "text": "The Capital",
+      "relevance": 0.91136,
+      "dbpedia_resource": "http://dbpedia.org/resource/The_Capital"
+    },
+    {
+      "text": "Switzerland",
+      "relevance": 0.8704,
+      "dbpedia_resource": "http://dbpedia.org/resource/Switzerland"
+    }
+  ]
+}]

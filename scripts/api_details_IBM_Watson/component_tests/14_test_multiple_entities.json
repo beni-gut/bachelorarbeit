@@ -1,0 +1,76 @@
+{
+  "concepts": [
+    {
+      "text": "European Union",
+      "dbpedia_resource": "http://dbpedia.org/resource/European_Union",
+      "relevance": 0.944332
+    },
+    {
+      "text": "Finland",
+      "dbpedia_resource": "http://dbpedia.org/resource/Finland",
+      "relevance": 0.856526
+    },
+    {
+      "text": "Estonia",
+      "dbpedia_resource": "http://dbpedia.org/resource/Estonia",
+      "relevance": 0.849798
+    },
+    {
+      "text": "Norway",
+      "dbpedia_resource": "http://dbpedia.org/resource/Norway",
+      "relevance": 0.767695
+    }
+  ],
+  "entities": [
+    {
+      "mentions": [
+        {
+          "confidence": 0.906555,
+          "location": [
+            9,
+            16
+          ],
+          "text": "Finland"
+        }
+      ],
+      "confidence": 0.906555,
+      "disambiguation": {
+        "subtype": [
+          "AdministrativeDivision",
+          "Country",
+          "GovernmentalJurisdiction",
+          "Profession"
+        ],
+        "name": "Finland",
+        "dbpedia_resource": "http://dbpedia.org/resource/Finland"
+      },
+      "count": 1,
+      "text": "Finland",
+      "type": "Location",
+      "relevance": 0.963296
+    },
+    {
+      "mentions": [
+        {
+          "confidence": 0.606161,
+          "location": [
+            26,
+            28
+          ],
+          "text": "EU"
+        }
+      ],
+      "confidence": 0.606161,
+      "count": 1,
+      "text": "EU",
+      "type": "Location",
+      "relevance": 0.076825
+    }
+  ],
+  "usage": {
+    "features": 2,
+    "text_units": 1,
+    "text_characters": 29
+  },
+  "language": "en"
+}
