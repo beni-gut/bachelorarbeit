@@ -1,0 +1,39 @@
+{
+  "concepts": [
+    {
+      "text": "Caravel",
+      "dbpedia_resource": "http://dbpedia.org/resource/Caravel",
+      "relevance": 0.853647
+    },
+    {
+      "text": "Santa María",
+      "dbpedia_resource": "http://dbpedia.org/resource/Santa_María_(ship)",
+      "relevance": 0.814244
+    }
+  ],
+  "entities": [
+    {
+      "mentions": [
+        {
+          "confidence": 0.410368,
+          "location": [
+            42,
+            50
+          ],
+          "text": "Columbus"
+        }
+      ],
+      "confidence": 0.410368,
+      "count": 1,
+      "text": "Columbus",
+      "type": "Location",
+      "relevance": 0.408806
+    }
+  ],
+  "usage": {
+    "features": 2,
+    "text_units": 1,
+    "text_characters": 51
+  },
+  "language": "en"
+}

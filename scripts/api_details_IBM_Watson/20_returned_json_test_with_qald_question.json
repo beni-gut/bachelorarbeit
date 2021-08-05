@@ -1,0 +1,143 @@
+{
+  "usage": {
+    "text_units": 1,
+    "text_characters": 51,
+    "features": 7
+  },
+  "sentiment": {
+    "document": {
+      "score": 0,
+      "label": "neutral"
+    }
+  },
+  "semantic_roles": [],
+  "relations": [
+    {
+      "type": "locatedAt",
+      "sentence": "What were the names of the three ships by Columbus?",
+      "score": 0.929013,
+      "arguments": [
+        {
+          "text": "ships",
+          "location": [
+            33,
+            38
+          ],
+          "entities": [
+            {
+              "type": "Vehicle",
+              "text": "ships"
+            }
+          ]
+        },
+        {
+          "text": "Columbus",
+          "location": [
+            42,
+            50
+          ],
+          "entities": [
+            {
+              "type": "GeopoliticalEntity",
+              "text": "Columbus"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "language": "en",
+  "keywords": [
+    {
+      "text": "names",
+      "sentiment": {
+        "score": 0,
+        "label": "neutral"
+      },
+      "relevance": 0.957921,
+      "count": 1
+    },
+    {
+      "text": "ships",
+      "sentiment": {
+        "score": 0,
+        "label": "neutral"
+      },
+      "relevance": 0.844133,
+      "count": 1
+    },
+    {
+      "text": "Columbus",
+      "sentiment": {
+        "score": 0,
+        "label": "neutral"
+      },
+      "relevance": 0.765931,
+      "count": 1
+    }
+  ],
+  "entities": [
+    {
+      "type": "Location",
+      "text": "Columbus",
+      "sentiment": {
+        "score": 0,
+        "label": "neutral"
+      },
+      "relevance": 0.408806,
+      "mentions": [
+        {
+          "text": "Columbus",
+          "location": [
+            42,
+            50
+          ],
+          "confidence": 0.410368
+        }
+      ],
+      "count": 1,
+      "confidence": 0.410368
+    }
+  ],
+  "concepts": [
+    {
+      "text": "Caravel",
+      "relevance": 0.853647,
+      "dbpedia_resource": "http://dbpedia.org/resource/Caravel"
+    },
+    {
+      "text": "Santa María",
+      "relevance": 0.814244,
+      "dbpedia_resource": "http://dbpedia.org/resource/Santa_María_(ship)"
+    }
+  ],
+  "categories": [
+    {
+      "score": 0.741643,
+      "label": "/travel/transports",
+      "explanation": {
+        "relevant_text": [
+          {
+            "text": "three ships"
+          }
+        ]
+      }
+    },
+    {
+      "score": 0.691541,
+      "label": "/travel/transports/sea travel",
+      "explanation": {
+        "relevant_text": [
+          {
+            "text": "three ships"
+          }
+        ]
+      }
+    }
+  ],
+  "warnings": [
+    "classifications: Must provide a valid 'model' option",
+    "syntax: syntax request must specify at least one valid option: sentences or tokens"
+  ],
+  "analyzed_text": "What were the names of the three ships by Columbus?"
+}
