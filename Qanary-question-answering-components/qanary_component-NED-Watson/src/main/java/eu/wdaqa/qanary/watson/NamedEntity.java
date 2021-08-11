@@ -2,19 +2,19 @@ package eu.wdaqa.qanary.watson;
 
 public class NamedEntity {
     private String uri;
-    private int start;
+    private int begin;
     private int end;
     private double confidence;
 
-    public NamedEntity(String uri, int start, int end, double confidence) {
-        this.start = start;
+    public NamedEntity(String uri, int begin, int end, double confidence) {
+        this.begin = begin;
         this.end = end;
         this.uri = uri;
         this.confidence = confidence;
     }
 
-    public NamedEntity(String uri, int start, int end) {
-        this.start = start;
+    public NamedEntity(String uri, int begin, int end) {
+        this.begin = begin;
         this.end = end;
         this.uri = uri;
     }
@@ -27,8 +27,8 @@ public class NamedEntity {
         return confidence;
     }
 
-    public int getStart() {
-        return start;
+    public int getBegin() {
+        return begin;
     }
 
     public int getEnd() {
@@ -37,6 +37,6 @@ public class NamedEntity {
 
     @Override
     public String toString() {
-        return (uri + " at location: (" + this.getStart() + ", " + this.getEnd() + ") with probability: " + this.getConfidence());
+        return (uri + " at location: (" + this.getBegin() + ", " + this.getEnd() + ") with probability: " + this.getConfidence());
     }
 }

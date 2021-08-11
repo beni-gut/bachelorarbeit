@@ -15,17 +15,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.net.URI;
 
-import org.apache.commons.io.IOUtils;
-import org.apache.http.client.ClientProtocolException;
-//import org.apache.http.HttpEntity;
-//import org.apache.http.HttpHeaders;
-//import org.apache.http.HttpResponse;
-//import org.apache.http.client.HttpClient;
-//import org.apache.http.client.methods.HttpPost;
-//import org.apache.http.entity.StringEntity;
-//import org.apache.http.impl.client.HttpClients;
-
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import com.google.gson.Gson;
 
@@ -41,8 +32,6 @@ import eu.wdaqua.qanary.commons.QanaryQuestion;
 import eu.wdaqua.qanary.commons.QanaryUtils;
 import eu.wdaqua.qanary.component.QanaryComponent;
 import eu.wdaqua.qanary.exceptions.SparqlQueryFailed;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 
@@ -118,7 +107,7 @@ public class WatsonNED extends QanaryComponent {
 					+ "oa:hasSource    <" + myQanaryQuestion.getUri() + ">; \n" //
 					+ "oa:hasSelector  [ " //
 					+ "a oa:TextPositionSelector ; " //
-					+ "oa:start \"" + namedEntity.getStart() + "\"^^xsd:nonNegativeInteger ; " //
+					+ "oa:start \"" + namedEntity.getBegin() + "\"^^xsd:nonNegativeInteger ; " //
 					+ "oa:end  \"" + namedEntity.getEnd() + "\"^^xsd:nonNegativeInteger ; " //
 					+ "qa:score \"" + namedEntity.getConfidence() + "\"^^xsd:float " //
 					+ "] " //
@@ -146,15 +135,15 @@ public class WatsonNED extends QanaryComponent {
 		logger.info("Retrieving data from Webservice for Question: {}", myQuestionText);
 		ArrayList<NamedEntity> namedEntityArrayList = new ArrayList<>();
 
-		// language for the question
+		// language of the question
 		String questionLang = "en";
 
 		/**
 		 * the request body as a JSONObject
-		 * features defines what the API returns
-		 * entities returns the entities with a dbpedia-link if it can find one
-		 * 'mentions' so the location of the entity is returned
-		 * standard limit is 50
+		 * "features" defines what the API will return
+		 * "entities" returns the entities with a dbpedia-link if it can find one
+		 * "mentions" so the location of the entity is returned
+		 * standard limit is 50 for entities
 		 *
 		 * JSONObject should look like this:
 		 * {
@@ -181,55 +170,34 @@ public class WatsonNED extends QanaryComponent {
 		JSONObject requestFeatures = new JSONObject();
 		requestFeatures.put("entities", requestFeaturesEntities);
 		requestBody.put("features", requestFeatures);
-		/*
-		String requestBody = "{\"language\": \"en\","
-				+ "\"text\": \"" + myQuestionText
-				+ "\",\"features\": {"
-				+ "\"entities\": {\"limit\": 5, \"mentions\": true}}}";
-		 */
-		logger.info("requestObject: {}", requestBody);
-
-		// transforms the request body for the Http request
-//		 StringEntity requestEntity = new StringEntity(requestBody.toString());
 
 		// encodes the API key for Authorization
 		String encodedKey = Base64.getEncoder().encodeToString(("apikey:" + watsonServiceKey).getBytes());
 
-		// instances the httpRequest and sets the headers and body
-		/**
-		 * Check Headers and correct them...
-		 */
-//		HttpClient httpClient = HttpClients.createDefault();
+		// instances the http headers and sets them
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 		headers.set(HttpHeaders.AUTHORIZATION, "Basic " + encodedKey);
+		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 		headers.set("User-Agent", "Qanary/" + this.getClass().getName());
 
-		HttpEntity<JSONObject> requestEntity = new HttpEntity<JSONObject>(requestBody, headers);
+		// creates the Spring requestEntity, http entity seems to be unable to handle JSONObjects
+		HttpEntity<String> requestEntity = new HttpEntity<String>(requestBody.toString(), headers);
 
+		// creates the Spring RestTemplate
 		RestTemplate restTemplate = new RestTemplate();
 
-//		HttpPost httpRequest = new HttpPost(watsonServiceURL + "/v1/analyze?version=2021-08-01");
-//		httpRequest.setHeader(HttpHeaders.AUTHORIZATION, "Basic " + encodedKey);
-//		httpRequest.setHeader("Content-Type", "application/json");
-//		httpRequest.setEntity(requestEntity);
+		/**
+		 * executes the http request, needs
+		 * watsonServiceURL of type URI, the HTTPMethod, the Spring requestEntity and the class of the response type
+		 * seemingly can't directly return JSON
+		 */
+		ResponseEntity<String> response = restTemplate.exchange(watsonServiceURL, HttpMethod.POST, requestEntity, String.class);
 
-		// executes the http request
-//		HttpResponse response = httpClient.execute(httpRequest);
-		ResponseEntity<JSONObject> response = restTemplate.exchange(watsonServiceURL, HttpMethod.POST, requestEntity, JSONObject.class);
-
-		logger.info("response Object: {}", response.getBody());
-
-		/*
 		try {
-			HttpEntity httpEntity = response.getEntity();
-			if (httpEntity != null) {
-				InputStream inputStream = httpEntity.getContent();
-
-				String text = IOUtils.toString(inputStream, StandardCharsets.UTF_8.name());
-				JSONObject responseJsonObject = new JSONObject(text);
-				logger.info("received Json Response: \n{}\n", responseJsonObject);
+			String returnedStringResponse = response.getBody();
+			if (returnedStringResponse != null) {
+				JSONObject responseJsonObject = new JSONObject(returnedStringResponse);
 				// test if response returned the entities Array
 				if (responseJsonObject.has("entities")) {
 					// get the entity Array
@@ -267,11 +235,10 @@ public class WatsonNED extends QanaryComponent {
 			if (cacheEnabled) {
 				this.writeToCache(myQuestionText, namedEntityArrayList);
 			}
-		} catch (ClientProtocolException e) {
+		} catch (JSONException e) {
 			// handle this
-			logger.error("ClientProtocolException: {}", e);
+			logger.error("JSONException: {}", e);
 		}
-		*/
 		return namedEntityArrayList;
 	}
 
