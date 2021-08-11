@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
+import java.net.URI;
+
 import eu.wdaqua.qanary.component.QanaryComponent;
 
 @SpringBootApplication
@@ -27,7 +29,7 @@ public class Application {
 			@Value("${spring.application.name}") final String applicationName,
 			@Value("${ned-watson.cache.enabled}") final boolean cacheEnabled,
 			@Value("${ned-watson.cache.file}") final String cacheFile,
-			@Value("${ned-watson.service.url}") final String watsonServiceURL,
+			@Value("${ned-watson.service.url}") final URI watsonServiceURL,
 			@Value("${ned-watson.service.key}") final String watsonServiceKey
 	) {
 		return new WatsonNED(applicationName, cacheEnabled, cacheFile, watsonServiceURL, watsonServiceKey);

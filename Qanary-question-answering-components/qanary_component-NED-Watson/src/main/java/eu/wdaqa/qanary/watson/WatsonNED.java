@@ -12,6 +12,7 @@ import java.util.List;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.net.URI;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
@@ -38,6 +39,8 @@ import eu.wdaqua.qanary.commons.QanaryQuestion;
 import eu.wdaqua.qanary.commons.QanaryUtils;
 import eu.wdaqua.qanary.component.QanaryComponent;
 import eu.wdaqua.qanary.exceptions.SparqlQueryFailed;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 
 @Component
@@ -51,14 +54,14 @@ public class WatsonNED extends QanaryComponent {
 	private final String applicationName;
 	private final boolean cacheEnabled;
 	private final String cacheFile;
-	private final String watsonServiceURL;
+	private final URI watsonServiceURL;
 	private final String watsonServiceKey;
 
 	public WatsonNED(
 			@Value("${spring.application.name}")final String applicationName,
 			@Value("${ned-watson.cache.enabled}") final boolean cacheEnabled,
 			@Value("${ned-watson.cache.file}") final String cacheFile,
-			@Value("${ned-watson.service.url}") final String watsonServiceURL,
+			@Value("${ned-watson.service.url}") final URI watsonServiceURL,
 			@Value("${ned-watson.service.key}") final String watsonServiceKey
 	) {
 		this.applicationName = applicationName;
@@ -130,6 +133,12 @@ public class WatsonNED extends QanaryComponent {
 		return myQanaryMessage;
 	}
 
+	/**
+	 * Requests Data from the Watson WebService
+	 * @param myQuestionText The question as String
+	 * @return a List with all found Named Entities, which will be further processed in "process"
+	 * @throws IOException
+	 */
 	private List<NamedEntity> retrieveDataFromWebService(String myQuestionText) throws IOException {
 		logger.info("Retrieving data from Webservice for Question: {}", myQuestionText);
 		ArrayList<NamedEntity> namedEntityArrayList = new ArrayList<>();
@@ -141,6 +150,8 @@ public class WatsonNED extends QanaryComponent {
 		 * 'mentions' so the location of the entity is returned
 		 * standard limit is 50
 		 */
+
+		// Probably encode as JSONArray/Object and possibly encode QuestionText
 		String requestBody = "{\"language\": \"en\","
 				+ "\"text\": \"" + myQuestionText
 				+ "\",\"features\": {"
@@ -153,10 +164,18 @@ public class WatsonNED extends QanaryComponent {
 		String encodedKey = Base64.getEncoder().encodeToString(("apikey:" + watsonServiceKey).getBytes());
 
 		// instances the httpRequest and sets the headers and body
+		/**
+		 * Check Headers and correct them...
+		 */
 		HttpClient httpClient = HttpClients.createDefault();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType("application/json");
+		headers.set(HttpHeaders.AUTHORIZATION, "Basic " + encodedKey);
+		headers.set("User-Agent", "Qanary/" + this.getClass().getName() );
 		HttpPost httpRequest = new HttpPost(watsonServiceURL + "/v1/analyze?version=2021-08-01");
-		httpRequest.setHeader(HttpHeaders.AUTHORIZATION, "Basic " + encodedKey);
-		httpRequest.setHeader("Content-Type", "application/json");
+//		httpRequest.setHeader(HttpHeaders.AUTHORIZATION, "Basic " + encodedKey);
+//		httpRequest.setHeader("Content-Type", "application/json");
+		httpRequest.setHeader(headers);
 		httpRequest.setEntity(requestEntity);
 
 		// executes the http request
