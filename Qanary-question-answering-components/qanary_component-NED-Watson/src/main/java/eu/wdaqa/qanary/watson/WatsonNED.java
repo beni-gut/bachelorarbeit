@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -15,14 +16,14 @@ import java.util.Base64;
 import java.net.URI;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHeaders;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClients;
+//import org.apache.http.HttpEntity;
+//import org.apache.http.HttpHeaders;
+//import org.apache.http.HttpResponse;
+//import org.apache.http.client.HttpClient;
+//import org.apache.http.client.methods.HttpPost;
+//import org.apache.http.entity.StringEntity;
+//import org.apache.http.impl.client.HttpClients;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -31,6 +32,7 @@ import com.google.gson.Gson;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -41,6 +43,7 @@ import eu.wdaqua.qanary.component.QanaryComponent;
 import eu.wdaqua.qanary.exceptions.SparqlQueryFailed;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 
 @Component
@@ -143,22 +146,51 @@ public class WatsonNED extends QanaryComponent {
 		logger.info("Retrieving data from Webservice for Question: {}", myQuestionText);
 		ArrayList<NamedEntity> namedEntityArrayList = new ArrayList<>();
 
+		// language for the question
+		String questionLang = "en";
+
 		/**
-		 * the request body as a String
+		 * the request body as a JSONObject
 		 * features defines what the API returns
 		 * entities returns the entities with a dbpedia-link if it can find one
 		 * 'mentions' so the location of the entity is returned
 		 * standard limit is 50
+		 *
+		 * JSONObject should look like this:
+		 * {
+		 *      "language": "en",
+		 *      "text": "questionTextHere",
+		 *      "features": {
+		 *        "entities": {
+		 *          "limit": 5,
+		 *          "mentions": true
+		 *        }
+		 *      }
+		 * }
 		 */
+		// create request body as JSONObject
+		JSONObject requestBody = new JSONObject();
+		requestBody.put("language", questionLang);
+		requestBody.put("text", myQuestionText);
 
-		// Probably encode as JSONArray/Object and possibly encode QuestionText
+		// create request features for entities
+		JSONObject requestFeaturesEntities = new JSONObject();
+		requestFeaturesEntities.put("limit", 5);
+		requestFeaturesEntities.put("mentions", true);
+		// add request features
+		JSONObject requestFeatures = new JSONObject();
+		requestFeatures.put("entities", requestFeaturesEntities);
+		requestBody.put("features", requestFeatures);
+		/*
 		String requestBody = "{\"language\": \"en\","
 				+ "\"text\": \"" + myQuestionText
 				+ "\",\"features\": {"
 				+ "\"entities\": {\"limit\": 5, \"mentions\": true}}}";
+		 */
+		logger.info("requestObject: {}", requestBody);
 
 		// transforms the request body for the Http request
-		StringEntity requestEntity = new StringEntity(requestBody);
+//		 StringEntity requestEntity = new StringEntity(requestBody.toString());
 
 		// encodes the API key for Authorization
 		String encodedKey = Base64.getEncoder().encodeToString(("apikey:" + watsonServiceKey).getBytes());
@@ -167,20 +199,29 @@ public class WatsonNED extends QanaryComponent {
 		/**
 		 * Check Headers and correct them...
 		 */
-		HttpClient httpClient = HttpClients.createDefault();
+//		HttpClient httpClient = HttpClients.createDefault();
 		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType("application/json");
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 		headers.set(HttpHeaders.AUTHORIZATION, "Basic " + encodedKey);
-		headers.set("User-Agent", "Qanary/" + this.getClass().getName() );
-		HttpPost httpRequest = new HttpPost(watsonServiceURL + "/v1/analyze?version=2021-08-01");
+		headers.set("User-Agent", "Qanary/" + this.getClass().getName());
+
+		HttpEntity<JSONObject> requestEntity = new HttpEntity<JSONObject>(requestBody, headers);
+
+		RestTemplate restTemplate = new RestTemplate();
+
+//		HttpPost httpRequest = new HttpPost(watsonServiceURL + "/v1/analyze?version=2021-08-01");
 //		httpRequest.setHeader(HttpHeaders.AUTHORIZATION, "Basic " + encodedKey);
 //		httpRequest.setHeader("Content-Type", "application/json");
-		httpRequest.setHeader(headers);
-		httpRequest.setEntity(requestEntity);
+//		httpRequest.setEntity(requestEntity);
 
 		// executes the http request
-		HttpResponse response = httpClient.execute(httpRequest);
+//		HttpResponse response = httpClient.execute(httpRequest);
+		ResponseEntity<JSONObject> response = restTemplate.exchange(watsonServiceURL, HttpMethod.POST, requestEntity, JSONObject.class);
 
+		logger.info("response Object: {}", response.getBody());
+
+		/*
 		try {
 			HttpEntity httpEntity = response.getEntity();
 			if (httpEntity != null) {
@@ -230,6 +271,7 @@ public class WatsonNED extends QanaryComponent {
 			// handle this
 			logger.error("ClientProtocolException: {}", e);
 		}
+		*/
 		return namedEntityArrayList;
 	}
 
