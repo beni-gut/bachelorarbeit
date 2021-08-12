@@ -214,7 +214,7 @@ public class WatsonNED extends QanaryComponent {
 							if (responseEntity.has("disambiguation")) {
 								// get location in the question of the entity
 								JSONArray locationsArray = (JSONArray) responseEntity.getJSONArray("mentions").getJSONObject(0).get("location");
-								int start = locationsArray.getInt(0);
+								int begin = locationsArray.getInt(0);
 								int end = locationsArray.getInt(1) - 1;
 
 								// get the confidence assigned by Watson
@@ -222,10 +222,10 @@ public class WatsonNED extends QanaryComponent {
 
 								// get the disambiguated dbpedia uri
 								String uri = (String) responseEntity.getJSONObject("disambiguation").get("dbpedia_resource");
-								logger.info("dbpedia_resource: {}, start: {}, end: {}, confidence: {}", uri, start, end, confidence);
+								logger.info("dbpedia_resource: {}, begin: {}, end: {}, confidence: {}", uri, begin, end, confidence);
 
 								// create new NamedEntity with all Data and add it to the ArrayList
-								NamedEntity foundNamedEntity = new NamedEntity(uri, start, end, confidence);
+								NamedEntity foundNamedEntity = new NamedEntity(uri, begin, end, confidence);
 								namedEntityArrayList.add(foundNamedEntity);
 							}
 						}
@@ -268,7 +268,7 @@ public class WatsonNED extends QanaryComponent {
 					if (jsonArr.length() != 0) {
 						for (int i = 0; i < jsonArr.length(); i ++) {
 							JSONObject explrObject = jsonArr.getJSONObject(i);
-							NamedEntity namedEntity = new NamedEntity((String) explrObject.get("uri"), (int) explrObject.get("start"), (int) explrObject.get("end"), (double) explrObject.get("confidence"));
+							NamedEntity namedEntity = new NamedEntity((String) explrObject.get("uri"), (int) explrObject.get("begin"), (int) explrObject.get("end"), (double) explrObject.get("confidence"));
 							cacheResult.dataWatson.add(namedEntity);
 						}
 					}
