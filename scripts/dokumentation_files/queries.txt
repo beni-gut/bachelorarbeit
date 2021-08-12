@@ -1,0 +1,139 @@
+REL
+PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX qa: <http://www.wdaqua.eu/qa#>
+
+SELECT *
+FROM 
+
+<urn:graph:3bb4030d-047a-4432-a584-16ea48198124>
+
+WHERE {
+    ?s rdf:type qa:AnnotationOfRelation.
+    ?s oa:hasBody ?result.
+}
+
+
+QB-Test2?
+PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX qa: <http://www.wdaqua.eu/qa#>
+
+SELECT *
+FROM <urn:graph:befc0b2b-bf90-4719-b1c9-76323657df18>
+WHERE {
+    ?a a qa:AnnotationOfAnswerSPARQL.
+    ?s oa:hasBody ?resultAsSparqlQuery.
+}
+
+
+JSON Select
+PREFIX qa: <http://www.wdaqua.eu/qa#>
+PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT *
+FROM 
+<urn:graph:af0b0bc3-b6ac-4011-a427-a7d1835c6145>
+WHERE {
+    ?a a qa:AnnotationOfAnswerJson .
+    ?a oa:hasBody ?answer .
+    ?answer rdf:value ?json .
+    ?a oa:annotatedBy ?component.
+}
+
+
+Json Answer
+PREFIX qa: <http://www.wdaqua.eu/qa#>
+PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT *
+FROM 
+<urn:graph:af0b0bc3-b6ac-4011-a427-a7d1835c6145>
+WHERE {
+    ?a a qa:AnswerJson .
+    ?answer rdf:value ?jsonAnswer . 
+}
+
+
+
+Get SPARQL Results
+PREFIX qa: <http://www.wdaqua.eu/qa#> 
+PREFIX oa: <http://www.w3.org/ns/openannotation/core/> 
+
+#SELECT ?sparql ?confidence ?kb 
+SELECT ?sparql 
+FROM 
+<urn:graph:3bb4030d-047a-4432-a584-16ea48198124>
+WHERE {   
+    ?a a qa:AnnotationOfAnswerSPARQL .   
+    OPTIONAL { ?a oa:hasBody ?sparql . }   
+    OPTIONAL { ?a qa:hasScore ?score . }   
+    OPTIONAL { ?a qa:hasConfidence ?confidence . }   
+    OPTIONAL { ?a qa:overKb ?kb . }   
+    ?a oa:annotatedAt ?time1 .   {    
+        SELECT ?time1 {     
+            ?a a qa:AnnotationOfAnswerSPARQL .     
+            ?a oa:annotatedAt ?time1 .    
+        } 	  
+        ORDER BY DESC(?time1) LIMIT 1   
+    } 
+} 
+ORDER BY DESC(?score)
+
+
+NER
+PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX qa: <http://www.wdaqua.eu/qa#>
+SELECT ?start ?end ?by
+FROM <urn:graph:1badd96a-069f-40fb-b7d8-886678791913>
+WHERE {
+    ?a a qa:AnnotationOfSpotInstance .
+    ?a oa:annotatedBy ?by.
+    ?a oa:hasTarget [
+        a   oa:SpecificResource;
+        oa:hasSource    ?q;
+        oa:hasSelector [
+            a oa:TextPositionSelector;
+            oa:start ?start;
+            oa:end ?end;
+        ]
+    ];
+}
+
+
+
+NED
+PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX qa: <http://www.wdaqua.eu/qa#>
+#SELECT *
+SELECT ?resultAsSparqlQuery
+FROM 
+<urn:graph:a2af5a30-be80-44fd-a711-f595d6207dfc>
+WHERE {
+    ?s rdf:type qa:AnnotationOfInstance.
+    ?s oa:hasBody ?resultAsSparqlQuery.
+    ?s oa:annotatedBy ?byComponent.
+    ?s oa:annotatedAt ?time.
+}
+
+
+
+CLS
+PREFIX oa: <http://www.w3.org/ns/openannotation/core/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX qa: <http://www.wdaqua.eu/qa#>
+
+SELECT *
+FROM <urn:graph:1badd96a-069f-40fb-b7d8-886678791913>
+WHERE {
+    ?s rdf:type qa:AnnotationOfClass.
+    ?s oa:hasBody ?result.
+}
+
+
+
+
