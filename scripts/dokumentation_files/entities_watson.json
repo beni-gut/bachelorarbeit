@@ -1,0 +1,79 @@
+{
+  "Which airports are located in California, USA?": {
+    "entities": [
+      {
+        "type": "Location",
+        "text": "California, USA"
+      }
+    ],
+    "concepts": [
+      {
+        "text": "United States",
+        "dbpedia_resource": "http://dbpedia.org/resource/United_States"
+      },
+      {
+        "text": "California",
+        "dbpedia_resource": "http://dbpedia.org/resource/California"
+      },
+      {
+        "text": "Public transport",
+        "dbpedia_resource": "http://dbpedia.org/resource/Public_transport"
+      }
+    ]
+  },
+  "When did Finland join the EU?": {
+    "concepts": [
+      {
+        "text": "European Union",
+        "dbpedia_resource": "http://dbpedia.org/resource/European_Union"
+      },
+      {
+        "text": "Finland",
+        "dbpedia_resource": "http://dbpedia.org/resource/Finland"
+      },
+      {
+        "text": "Estonia",
+        "dbpedia_resource": "http://dbpedia.org/resource/Estonia"
+      },
+      {
+        "text": "Norway",
+        "dbpedia_resource": "http://dbpedia.org/resource/Norway"
+      }
+    ],
+    "entities": [
+      {
+        "disambiguation": {
+          "subtype": [
+            "AdministrativeDivision",
+            "Country",
+            "GovernmentalJurisdiction",
+            "Profession"
+          ],
+          "name": "Finland",
+          "dbpedia_resource": "http://dbpedia.org/resource/Finland"
+        }
+      }
+    ]
+  },
+  "What were the names of the three ships by Columbus?": {
+    "entities": [
+      {
+        "mentions": [
+          {
+            "text": "Columbus"
+          }
+        ]
+      }
+    ],
+    "concepts": [
+      {
+        "text": "Caravel",
+        "dbpedia_resource": "http://dbpedia.org/resource/Caravel"
+      },
+      {
+        "text": "Santa María",
+        "dbpedia_resource": "http://dbpedia.org/resource/Santa_María_(ship)"
+      }
+    ]
+  }
+}
